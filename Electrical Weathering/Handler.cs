@@ -51,7 +51,12 @@ namespace Electrical_Weathering
                 for (y = 0; y < background.Height; y++)
                 {
                     Color sourceColor = background.GetPixel(x, y);
-                    Color mixColor = Color.FromArgb(255,sourceColor.R * (100 - alpha) / 100,(sourceColor.G * (100-alpha) / 100)+255*alpha/100, sourceColor.B * (100 - alpha) / 100);
+                    Color mixColor = Color.FromArgb(
+                        255,
+                        sourceColor.R * (100 - alpha) / 100,
+                        sourceColor.G * (100 - alpha) / 100 + 255 * alpha / 100,
+                        sourceColor.B * (100 - alpha) / 100
+                        );
                     Mix.SetPixel(x, y, mixColor);
                 }
             }
@@ -72,12 +77,28 @@ namespace Electrical_Weathering
                 for (y = 0; y < background.Height; y++)
                 {
                     Color sourceColor = background.GetPixel(x, y);
-                    Color mixColor = Color.FromArgb(255, sourceColor.R * (100 - alpha) / 100+ rnd.Next(255) * alpha / 100, (sourceColor.G * (100 - alpha) / 100) + rnd.Next(255) * alpha / 100, sourceColor.B * (100 - alpha) / 100+rnd.Next(255) * alpha / 100);
+                    Color mixColor = Color.FromArgb(
+                        255,
+                        sourceColor.R * (100 - alpha) / 100 + rnd.Next(255) * alpha / 100, 
+                        sourceColor.G * (100 - alpha) / 100 + rnd.Next(255) * alpha / 100, 
+                        sourceColor.B * (100 - alpha) / 100 + rnd.Next(255) * alpha / 100
+                        );
                     Mix.SetPixel(x, y, mixColor);
                 }
             }
 
             return Mix;
+        }
+
+        static public Image Zooming(Image Source, float Aspect)
+        {
+
+            Bitmap result = new Bitmap((int)(Source.Width*Aspect), (int)(Source.Height * Aspect));
+            using (Graphics g = Graphics.FromImage(result))
+            {
+                g.DrawImage(Source, 0, 0, result.Width, result.Height);
+            }
+            return result;
         }
     }
 }

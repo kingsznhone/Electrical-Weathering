@@ -50,7 +50,9 @@ namespace Electrical_Weathering
                     Compressing.Enabled = true;
                     Greening.Enabled = true;
                     Noise.Enabled = true;
+                    zooming.Enabled = true;
                     Generate.Enabled = true;
+                    groupBox1.Enabled = true;
                 }
             }
             catch
@@ -62,12 +64,22 @@ namespace Electrical_Weathering
 
         private void Weathering_Scroll(object sender, EventArgs e)
         {
-            WeatheringValue.Text = Convert.ToString(Compressing.Value);
+            Customized.Checked = true; 
         }
 
         private void Greening_Scroll(object sender, EventArgs e)
         {
-            GreeningValue.Text = Convert.ToString(Greening.Value);
+            Customized.Checked = true;
+        }
+        private void Noise_Scroll(object sender, EventArgs e)
+        {
+            Customized.Checked = true;
+        }
+
+        private void zooming_Scroll(object sender, EventArgs e)
+        {
+            zoomingValue.Text = Convert.ToString(zooming.Value) + @"%";
+            Customized.Checked = true;
         }
 
         private void Weatherizing_Click(object sender, EventArgs e)
@@ -78,6 +90,7 @@ namespace Electrical_Weathering
                 pictureBox.Image = Handler.Noising(Emojpg, Noise.Value);
                 pictureBox.Image = Handler.Greening(pictureBox.Image, Greening.Value);
                 pictureBox.Image = Handler.Weathering(pictureBox.Image, Compressing.Value);
+                pictureBox.Image = Handler.Zooming(pictureBox.Image, zooming.Value/100f);
                 SaveBtn.Enabled = true;
             }
             catch
@@ -88,25 +101,27 @@ namespace Electrical_Weathering
             
         }
 
-        private void Noise_Scroll(object sender, EventArgs e)
-        {
-            noiseValue.Text = Convert.ToString(Noise.Value);
-        }
-
         private void SaveBtn_Click(object sender, EventArgs e)
         {
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            try
             {
-                ImageCodecInfo myImageCodecInfo = Handler.GetEncoderInfo("image/jpeg");
-                EncoderParameters myEncoderParameters = new EncoderParameters(1);
-                myEncoderParameters.Param[0] = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality,100L);
-                using (Bitmap bitmap = new Bitmap(pictureBox.Image))
+                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                 {
-                    using (MemoryStream ms = new MemoryStream())
+                    ImageCodecInfo myImageCodecInfo = Handler.GetEncoderInfo("image/jpeg");
+                    EncoderParameters myEncoderParameters = new EncoderParameters(1);
+                    myEncoderParameters.Param[0] = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 100L);
+                    using (Bitmap bitmap = new Bitmap(pictureBox.Image))
                     {
-                        bitmap.Save(saveFileDialog1.FileName, myImageCodecInfo, myEncoderParameters);
+                        using (MemoryStream ms = new MemoryStream())
+                        {
+                            bitmap.Save(saveFileDialog1.FileName, myImageCodecInfo, myEncoderParameters);
+                        }
                     }
                 }
+            }
+            catch
+            {
+                MessageBox.Show("就你那破图还想电子包浆？", "Excuse me?", MessageBoxButtons.OK);
             }
         }
 
@@ -120,6 +135,62 @@ namespace Electrical_Weathering
             Source.Focus();
             Source.Select(Source.TextLength, 0);
             Source.ScrollToCaret();
+        }
+
+        private void pictureBox_Paint(object sender, PaintEventArgs e)
+        {
+            try
+            {
+                if (pictureBox.Image.Height > pictureBox.Height || pictureBox.Image.Width > pictureBox.Width)
+                {
+                    pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+                }
+                else
+                {
+                    pictureBox.SizeMode = PictureBoxSizeMode.CenterImage;
+                }
+            }
+            catch
+            {
+
+            }
+            
+        }
+
+        private void Default_L_Click(object sender, EventArgs e)
+        {
+            Noise.Value = 0;
+            Greening.Value = 5;
+            Compressing.Value = 80;
+        }
+
+        private void Default_M_Click(object sender, EventArgs e)
+        {
+            Noise.Value = 5;
+            Greening.Value = 10;
+            Compressing.Value = 85;
+        }
+
+        private void Default_H_Click(object sender, EventArgs e)
+        {
+            Noise.Value = 10;
+            Greening.Value = 15;
+            Compressing.Value = 90;
+        }
+
+        private void Noise_ValueChanged(object sender, EventArgs e)
+        {
+            noiseValue.Text = Convert.ToString(Noise.Value) + @"%";
+        }
+
+        private void Greening_ValueChanged(object sender, EventArgs e)
+        {
+            GreeningValue.Text = Convert.ToString(Greening.Value) + @"%";
+        }
+
+        private void Compressing_ValueChanged(object sender, EventArgs e)
+        {
+            WeatheringValue.Text = Convert.ToString(Compressing.Value) + @"%";
         }
     }
 }
