@@ -27,7 +27,7 @@ namespace Electrical_Weathering
         private void Form1_Load(object sender, EventArgs e)
         {
             openFile.Filter = "All Image Files|*.bmp;*.jpeg;*.jpg;*.png";
-            saveFileDialog1.Filter = "JPEG File|jpeg;*.jpg";
+            saveFile.Filter = "JPEG File|jpeg;*.jpg";
         }
 
         private void Select_Click(object sender, EventArgs e)
@@ -93,19 +93,20 @@ namespace Electrical_Weathering
                 pictureBox.Image = Handler.Zooming(pictureBox.Image, zooming.Value/100f);
                 SaveBtn.Enabled = true;
             }
-            catch
+            catch (Exception err)
             {
-                MessageBox.Show("就你那破图还想电子包浆？", "Excuse me?",MessageBoxButtons.OK);
+                MessageBox.Show("就你那破图还想电子包浆？", "Excuse me?", MessageBoxButtons.OK);
+                MessageBox.Show(err.ToString(), "Excuse me?", MessageBoxButtons.OK);
             }
 
-            
+
         }
 
         private void SaveBtn_Click(object sender, EventArgs e)
         {
             try
             {
-                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                if (saveFile.ShowDialog() == DialogResult.OK)
                 {
                     ImageCodecInfo myImageCodecInfo = Handler.GetEncoderInfo("image/jpeg");
                     EncoderParameters myEncoderParameters = new EncoderParameters(1);
@@ -114,14 +115,15 @@ namespace Electrical_Weathering
                     {
                         using (MemoryStream ms = new MemoryStream())
                         {
-                            bitmap.Save(saveFileDialog1.FileName, myImageCodecInfo, myEncoderParameters);
+                            bitmap.Save(saveFile.FileName, myImageCodecInfo, myEncoderParameters);
                         }
                     }
                 }
             }
-            catch
+            catch (Exception err)
             {
                 MessageBox.Show("就你那破图还想电子包浆？", "Excuse me?", MessageBoxButtons.OK);
+                MessageBox.Show(err.ToString(), "Excuse me?", MessageBoxButtons.OK);
             }
         }
 
@@ -149,8 +151,9 @@ namespace Electrical_Weathering
                 {
                     pictureBox.SizeMode = PictureBoxSizeMode.CenterImage;
                 }
+                resolutionLb.Text = Convert.ToString(pictureBox.Image.Width) + " X " + Convert.ToString(pictureBox.Image.Height);
             }
-            catch
+            catch (Exception Err)
             {
 
             }

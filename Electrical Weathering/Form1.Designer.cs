@@ -44,18 +44,19 @@
             this.Noise = new System.Windows.Forms.TrackBar();
             this.noiseValue = new System.Windows.Forms.Label();
             this.SaveBtn = new System.Windows.Forms.Button();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.saveFile = new System.Windows.Forms.SaveFileDialog();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label3 = new System.Windows.Forms.Label();
             this.zooming = new System.Windows.Forms.TrackBar();
             this.zoomingValue = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.Default_L = new System.Windows.Forms.RadioButton();
-            this.Default_M = new System.Windows.Forms.RadioButton();
-            this.Default_H = new System.Windows.Forms.RadioButton();
             this.Customized = new System.Windows.Forms.RadioButton();
+            this.Default_H = new System.Windows.Forms.RadioButton();
+            this.Default_M = new System.Windows.Forms.RadioButton();
+            this.Default_L = new System.Windows.Forms.RadioButton();
             this.label4 = new System.Windows.Forms.Label();
+            this.resolutionLb = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Compressing)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Greening)).BeginInit();
@@ -82,15 +83,15 @@
             this.Source.Location = new System.Drawing.Point(614, 49);
             this.Source.Name = "Source";
             this.Source.ReadOnly = true;
-            this.Source.Size = new System.Drawing.Size(305, 30);
+            this.Source.Size = new System.Drawing.Size(340, 30);
             this.Source.TabIndex = 1;
             this.Source.TextChanged += new System.EventHandler(this.Source_TextChanged);
             // 
             // Select
             // 
-            this.Select.Location = new System.Drawing.Point(925, 49);
+            this.Select.Location = new System.Drawing.Point(960, 46);
             this.Select.Name = "Select";
-            this.Select.Size = new System.Drawing.Size(94, 30);
+            this.Select.Size = new System.Drawing.Size(100, 33);
             this.Select.TabIndex = 2;
             this.Select.Text = "选择";
             this.Select.UseVisualStyleBackColor = true;
@@ -170,7 +171,7 @@
             // Generate
             // 
             this.Generate.Enabled = false;
-            this.Generate.Location = new System.Drawing.Point(939, 367);
+            this.Generate.Location = new System.Drawing.Point(939, 368);
             this.Generate.Name = "Generate";
             this.Generate.Size = new System.Drawing.Size(119, 42);
             this.Generate.TabIndex = 2;
@@ -214,7 +215,7 @@
             // SaveBtn
             // 
             this.SaveBtn.Enabled = false;
-            this.SaveBtn.Location = new System.Drawing.Point(939, 482);
+            this.SaveBtn.Location = new System.Drawing.Point(939, 479);
             this.SaveBtn.Name = "SaveBtn";
             this.SaveBtn.Size = new System.Drawing.Size(119, 42);
             this.SaveBtn.TabIndex = 2;
@@ -226,7 +227,7 @@
             // 
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.LinkArea = new System.Windows.Forms.LinkArea(9, 31);
-            this.linkLabel1.Location = new System.Drawing.Point(634, 551);
+            this.linkLabel1.Location = new System.Drawing.Point(661, 551);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(397, 29);
             this.linkLabel1.TabIndex = 6;
@@ -250,6 +251,7 @@
             this.zooming.Enabled = false;
             this.zooming.Location = new System.Drawing.Point(666, 295);
             this.zooming.Maximum = 100;
+            this.zooming.Minimum = 1;
             this.zooming.Name = "zooming";
             this.zooming.Size = new System.Drawing.Size(328, 56);
             this.zooming.TabIndex = 3;
@@ -292,29 +294,16 @@
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             // 
-            // Default_L
+            // Customized
             // 
-            this.Default_L.AutoSize = true;
-            this.Default_L.Location = new System.Drawing.Point(9, 24);
-            this.Default_L.Name = "Default_L";
-            this.Default_L.Size = new System.Drawing.Size(153, 29);
-            this.Default_L.TabIndex = 0;
-            this.Default_L.TabStop = true;
-            this.Default_L.Text = "景泰蓝（低）";
-            this.Default_L.UseVisualStyleBackColor = true;
-            this.Default_L.Click += new System.EventHandler(this.Default_L_Click);
-            // 
-            // Default_M
-            // 
-            this.Default_M.AutoSize = true;
-            this.Default_M.Location = new System.Drawing.Point(9, 59);
-            this.Default_M.Name = "Default_M";
-            this.Default_M.Size = new System.Drawing.Size(153, 29);
-            this.Default_M.TabIndex = 1;
-            this.Default_M.TabStop = true;
-            this.Default_M.Text = "元青花（中）";
-            this.Default_M.UseVisualStyleBackColor = true;
-            this.Default_M.Click += new System.EventHandler(this.Default_M_Click);
+            this.Customized.AutoSize = true;
+            this.Customized.Location = new System.Drawing.Point(9, 129);
+            this.Customized.Name = "Customized";
+            this.Customized.Size = new System.Drawing.Size(93, 29);
+            this.Customized.TabIndex = 3;
+            this.Customized.TabStop = true;
+            this.Customized.Text = "自定义";
+            this.Customized.UseVisualStyleBackColor = true;
             // 
             // Default_H
             // 
@@ -328,31 +317,56 @@
             this.Default_H.UseVisualStyleBackColor = true;
             this.Default_H.Click += new System.EventHandler(this.Default_H_Click);
             // 
-            // Customized
+            // Default_M
             // 
-            this.Customized.AutoSize = true;
-            this.Customized.Location = new System.Drawing.Point(9, 129);
-            this.Customized.Name = "Customized";
-            this.Customized.Size = new System.Drawing.Size(93, 29);
-            this.Customized.TabIndex = 3;
-            this.Customized.TabStop = true;
-            this.Customized.Text = "自定义";
-            this.Customized.UseVisualStyleBackColor = true;
+            this.Default_M.AutoSize = true;
+            this.Default_M.Location = new System.Drawing.Point(9, 59);
+            this.Default_M.Name = "Default_M";
+            this.Default_M.Size = new System.Drawing.Size(153, 29);
+            this.Default_M.TabIndex = 1;
+            this.Default_M.TabStop = true;
+            this.Default_M.Text = "元青花（中）";
+            this.Default_M.UseVisualStyleBackColor = true;
+            this.Default_M.Click += new System.EventHandler(this.Default_M_Click);
+            // 
+            // Default_L
+            // 
+            this.Default_L.AutoSize = true;
+            this.Default_L.Location = new System.Drawing.Point(9, 24);
+            this.Default_L.Name = "Default_L";
+            this.Default_L.Size = new System.Drawing.Size(153, 29);
+            this.Default_L.TabIndex = 0;
+            this.Default_L.TabStop = true;
+            this.Default_L.Text = "景泰蓝（低）";
+            this.Default_L.UseVisualStyleBackColor = true;
+            this.Default_L.Click += new System.EventHandler(this.Default_L_Click);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(609, 367);
+            this.label4.Location = new System.Drawing.Point(609, 357);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(52, 25);
             this.label4.TabIndex = 5;
             this.label4.Text = "预设";
+            // 
+            // resolutionLb
+            // 
+            this.resolutionLb.AutoSize = true;
+            this.resolutionLb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.resolutionLb.Location = new System.Drawing.Point(239, 555);
+            this.resolutionLb.Name = "resolutionLb";
+            this.resolutionLb.Size = new System.Drawing.Size(46, 27);
+            this.resolutionLb.TabIndex = 9;
+            this.resolutionLb.Text = "0x0";
+            this.resolutionLb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1099, 609);
+            this.Controls.Add(this.resolutionLb);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.linkLabel1);
@@ -411,7 +425,7 @@
         private System.Windows.Forms.TrackBar Noise;
         private System.Windows.Forms.Label noiseValue;
         private System.Windows.Forms.Button SaveBtn;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.SaveFileDialog saveFile;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TrackBar zooming;
@@ -423,6 +437,7 @@
         private System.Windows.Forms.RadioButton Default_M;
         private System.Windows.Forms.RadioButton Default_L;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label resolutionLb;
     }
 }
 
