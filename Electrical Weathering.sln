@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2016
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Electrical Weathering", "Electrical Weathering\Electrical Weathering.csproj", "{6094B5E2-04FE-4ACD-BCC4-1DA8DE04BA50}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Electrical Weathering NG", "Electrical Weathering NG\Electrical Weathering NG.csproj", "{8A23BF79-FD70-4942-85F3-61839911616F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6094B5E2-04FE-4ACD-BCC4-1DA8DE04BA50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6094B5E2-04FE-4ACD-BCC4-1DA8DE04BA50}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6094B5E2-04FE-4ACD-BCC4-1DA8DE04BA50}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6094B5E2-04FE-4ACD-BCC4-1DA8DE04BA50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A23BF79-FD70-4942-85F3-61839911616F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A23BF79-FD70-4942-85F3-61839911616F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A23BF79-FD70-4942-85F3-61839911616F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A23BF79-FD70-4942-85F3-61839911616F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {BD2828E6-2E64-48FB-9DC6-8B5AFB682C70}
+		SolutionGuid = {CA9BF079-1240-48B4-8666-C3608C1736DF}
 	EndGlobalSection
 EndGlobal
