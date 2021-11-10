@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
-namespace Electrical_Weathering_NG
+namespace Electrical_Weathering
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
@@ -29,6 +29,7 @@ namespace Electrical_Weathering_NG
             PreviewImage.Source = new BitmapImage(new Uri(path, UriKind.RelativeOrAbsolute));
             SelectedBitmap = (BitmapSource)PreviewImage.Source;
             CenterWindowOnScreen();
+            Btn_Revert.IsEnabled = false;
         }
 
         private void CenterWindowOnScreen()
@@ -61,6 +62,7 @@ namespace Electrical_Weathering_NG
                 {
                     FilePathTextBox.Text = openFileDialog.FileName;
                     LoadImageFromPath(FilePathTextBox.Text);
+                    Btn_Revert.IsEnabled = true;
                 }
             }
             catch
@@ -211,6 +213,15 @@ namespace Electrical_Weathering_NG
             {
                 MessageBox.Show("就你那破图还想电子包浆？", "保存失败");
             }
+        }
+
+        private void Btn_Revert_Click(object sender, RoutedEventArgs e)
+        {
+            LoadImageFromPath(FilePathTextBox.Text);
+            Slider_Noise.Value = 0.0;
+            Slider_Greening.Value = 0.0;
+            Slider_Compressing.Value = 0.0;
+            Slider_Scaling.Value = 1.0;
         }
     }
 }

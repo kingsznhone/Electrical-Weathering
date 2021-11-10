@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 
-namespace Electrical_Weathering_NG
+namespace Electrical_Weathering
 {
     /// <summary>
     /// App.xaml 的交互逻辑

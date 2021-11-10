@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Electrical_Weathering_NG.Properties {
+namespace Electrical_Weathering.Properties {
     using System;
     
     

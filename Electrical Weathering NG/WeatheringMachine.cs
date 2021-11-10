@@ -1,8 +1,8 @@
-﻿using System;
-using System.Windows.Media.Imaging;
-using OpenCvSharp;
+﻿using OpenCvSharp;
 using OpenCvSharp.WpfExtensions;
-namespace Electrical_Weathering_NG
+using System;
+using System.Windows.Media.Imaging;
+namespace Electrical_Weathering
 {
     public class WeatheringMachine
     {
