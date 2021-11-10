@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Electrical_Weathering_NG" 
         mc:Ignorable="d"
-        Title="Electrical Weathering" 
+        Title="Electrical Weathering V3" 
         Height="720" Width="1280" 
         WindowStyle="ThreeDBorderWindow" 
         Icon="Weathering.bmp" 
@@ -27,8 +27,8 @@
 
 
             <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="0">
-                <Border x:Name="PreviewImageBorder" BorderBrush="Black" BorderThickness="1" VerticalAlignment="Stretch" Margin="60,30,60,0" Grid.Row="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="2"  Background="#FFB9B9B9" SizeChanged="PreviewImageBorder_SizeChanged">
-                    <Image x:Name="PreviewImage" Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Source="Demo.jpg" StretchDirection="Both" Margin="10,10,10,10" AllowDrop="True" Drop="FilePathTextBox_Drop" />
+                <Border x:Name="PreviewImageBorder" BorderBrush="Black" BorderThickness="1" VerticalAlignment="Stretch" Margin="60,30,60,0" Grid.Row="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="2"  Background="#FFB9B9B9">
+                    <Image x:Name="PreviewImage" Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Source="Demo.jpg" StretchDirection="Both" Margin="1,1,1,1" AllowDrop="True" Drop="FilePathTextBox_Drop" />
                 </Border>
             </Grid>
             <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1">
@@ -78,7 +78,6 @@
                         <Slider x:Name="Slider_Scaling" HorizontalAlignment="Stretch" Margin="100,0,100,0" VerticalAlignment="Center" Maximum="1" Value="1" TickFrequency="0.01" IsSnapToTickEnabled="True" LargeChange="0.01" SmallChange="0.01" PreviewMouseLeftButtonUp="Slider_Noise_PreviewMouseLeftButtonUp" Minimum="0.01"  />
                         <TextBlock TextWrapping="Wrap" Text="缩放" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18" Margin="30,0,0,0"/>
                         <TextBlock x:Name="TextScalingValue" TextWrapping="Wrap" Text="100%" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="18" Margin="0,0,30,0"/>
-
                     </Grid>
                 </Grid>
             </Grid>
@@ -111,10 +110,8 @@
 
                 </Grid>
 
-
                 <Button x:Name="Btn_Save" Content="保存" Margin="0,30,30,50" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="18" Width="120" Background="#FF005FB8" Foreground="White" Height="30" Click="Btn_Save_Click" />
                 <TextBlock HorizontalAlignment="Right" Margin="0,0,30,10" TextWrapping="Wrap" Text="Copyright © 2021 KingsZNHONE" VerticalAlignment="Bottom" Foreground="Gray"/>
-
             </Grid>
         </Grid>
     </Grid>

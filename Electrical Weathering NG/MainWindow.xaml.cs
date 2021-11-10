@@ -1,20 +1,10 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Electrical_Weathering_NG
 {
@@ -35,16 +25,16 @@ namespace Electrical_Weathering_NG
             stopwatch = new Stopwatch();
 
             Random rand = new Random();
-            string path = $"ImageResources/Demo{rand.Next(1,6)}.jpg";
-            PreviewImage.Source = new BitmapImage(new Uri(path,UriKind.RelativeOrAbsolute));
+            string path = $"ImageResources/Demo{rand.Next(1, 6)}.jpg";
+            PreviewImage.Source = new BitmapImage(new Uri(path, UriKind.RelativeOrAbsolute));
             SelectedBitmap = (BitmapSource)PreviewImage.Source;
             CenterWindowOnScreen();
         }
 
         private void CenterWindowOnScreen()
         {
-            double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
-            double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
+            double screenWidth = SystemParameters.PrimaryScreenWidth;
+            double screenHeight = SystemParameters.PrimaryScreenHeight;
             double windowWidth = this.Width;
             double windowHeight = this.Height;
             this.Left = (screenWidth / 2) - (windowWidth / 2);
@@ -54,7 +44,7 @@ namespace Electrical_Weathering_NG
         private void Generate()
         {
             stopwatch.Start();
-            BitmapSource Result = WM.Generate(SelectedBitmap,Slider_Noise.Value, Slider_Greening.Value, Slider_Compressing.Value, Slider_Scaling.Value);
+            BitmapSource Result = WM.Generate(SelectedBitmap, Slider_Noise.Value, Slider_Greening.Value, Slider_Compressing.Value, Slider_Scaling.Value);
             stopwatch.Stop();
             PreviewImage.Source = Result;
             ImageSizeText.Text = $"{Result.PixelWidth} x {Result.PixelHeight}" + $"  {stopwatch.ElapsedMilliseconds}ms";
@@ -83,7 +73,6 @@ namespace Electrical_Weathering_NG
         {
             using (var ms = new MemoryStream())
             {
-
                 BitmapImage BitmapBuffer = new BitmapImage();
                 using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
                 {
@@ -95,7 +84,6 @@ namespace Electrical_Weathering_NG
                 }
 
                 SelectedBitmap = BitmapBuffer;
-
                 PreviewImage.Source = SelectedBitmap;
                 ImageSizeText.Text = $"{SelectedBitmap.PixelWidth} x {SelectedBitmap.PixelHeight}";
 
@@ -116,11 +104,6 @@ namespace Electrical_Weathering_NG
             Slider_Scaling.Value = 1;
         }
 
-        private void PreviewImageBorder_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-
-        }
-
         private void Slider_Noise_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             TextNoiseValue.Text = $"{Slider_Noise.Value:P0}";
@@ -129,7 +112,6 @@ namespace Electrical_Weathering_NG
         private void Slider_Greening_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             TextGreeningValue.Text = $"{Slider_Greening.Value:P0}";
-
         }
 
         private void Slider_Compressing_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -146,8 +128,6 @@ namespace Electrical_Weathering_NG
             catch (NullReferenceException) { }
 
         }
-
-
 
         private void RB_Low_Click(object sender, RoutedEventArgs e)
         {
