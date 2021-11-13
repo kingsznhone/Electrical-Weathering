@@ -11,6 +11,29 @@ Using weared Emojpg is more expert than clear Emojpg.
 
 A weared Emojpg like a medal. A internet veteran medal.
 
+## 效果 Effect
+
+内置低中高三种强度
+
+3 Default Intensity
+
+
+### 源文件 Source Image 
+
+<img src="https://github.com/kingsznhone/Electrical-Weathering/blob/master/Quality_Source.jpg" width="200" height="200" alt="Source Image"/><br/>
+
+### 低强度 Low Intensity
+
+<img src="https://github.com/kingsznhone/Electrical-Weathering/blob/master/Quality_Low.jpg" width="200" height="200" alt="Low Intensity"/><br/>
+
+### 中强度 Midium Intensity
+
+<img src="https://github.com/kingsznhone/Electrical-Weathering/blob/master/Quality_Midium.jpg" width="200" height="200" alt="Midium Intensity"/><br/>
+
+### 高强度 High Intensity
+
+<img src="https://github.com/kingsznhone/Electrical-Weathering/blob/master/Quality_High.jpg" width="200" height="200" alt="High Intensity"/><br/>
+
 
 ## 更新日志 Change Log
 ### 2021.11.10 v3.1
