@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Electrical Weathering", "Electrical Weathering NG\Electrical Weathering.csproj", "{8A23BF79-FD70-4942-85F3-61839911616F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Electrical Weathering", "Electrical Weathering\Electrical Weathering.csproj", "{8A23BF79-FD70-4942-85F3-61839911616F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
