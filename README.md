@@ -9,7 +9,7 @@ This software targets to accelerate weared out on Memes which I called Emojpg.(e
 
 Using weared Emojpg is more expert than clear Emojpg.
 
-A weared Emojpg like a medal. A internet veteran medal.
+A weared Emojpg like a medal. An internet veteran medal.
 
 ## 效果 Effect
 
