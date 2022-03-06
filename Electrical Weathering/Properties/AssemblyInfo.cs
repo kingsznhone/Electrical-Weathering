@@ -10,7 +10,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("ZNH™ Industry")]
 [assembly: AssemblyProduct("Electrical Weathering")]
-[assembly: AssemblyCopyright("Copyright ©  2021 KingsZNHONE")]
+[assembly: AssemblyCopyright("Copyright © 2017 - 2022 KingsZNHONE")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

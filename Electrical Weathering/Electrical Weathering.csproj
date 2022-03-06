@@ -89,12 +89,9 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.5.3.20210817" />
-    <PackageReference Include="OpenCvSharp4.WpfExtensions" Version="4.5.3.20210817" />
+    <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.5.5.20211231" />
+    <PackageReference Include="OpenCvSharp4.WpfExtensions" Version="4.5.5.20211231" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.255803">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="6.0.0" />
   </ItemGroup>
   <ItemGroup>
