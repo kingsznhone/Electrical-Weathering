@@ -5,6 +5,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 
 namespace Electrical_Weathering
 {
@@ -14,18 +15,17 @@ namespace Electrical_Weathering
     public partial class MainWindow : Window
     {
         BitmapSource SelectedBitmap;
-        WeatheringMachine WM;
         Stopwatch stopwatch;
 
         public MainWindow()
         {
             InitializeComponent();
             Slider_Scaling.ValueChanged += Slider_Scaling_ValueChanged;
-            WM = new WeatheringMachine();
             stopwatch = new Stopwatch();
 
             Random rand = new Random();
-            string path = $"ImageResources/Demo{rand.Next(1, 6)}.jpg";
+            //string path = $"ImageResources/Demo{rand.Next(1, 9)}.jpg";
+            string path = $"ImageResources/Demo8.jpg";
             PreviewImage.Source = new BitmapImage(new Uri(path, UriKind.RelativeOrAbsolute));
             SelectedBitmap = (BitmapSource)PreviewImage.Source;
             CenterWindowOnScreen();
@@ -45,7 +45,7 @@ namespace Electrical_Weathering
         private void Generate()
         {
             stopwatch.Start();
-            BitmapSource Result = WM.Generate(SelectedBitmap, Slider_Noise.Value, Slider_Greening.Value, Slider_Compressing.Value, Slider_Scaling.Value);
+            BitmapSource Result = WeatheringMachine.Generate(SelectedBitmap, Slider_Noise.Value, Slider_Greening.Value, Slider_Compressing.Value, Slider_Scaling.Value);
             stopwatch.Stop();
             PreviewImage.Source = Result;
             ImageSizeText.Text = $"{Result.PixelWidth} x {Result.PixelHeight}" + $"  {stopwatch.ElapsedMilliseconds}ms";
@@ -151,7 +151,7 @@ namespace Electrical_Weathering
         {
             Slider_Noise.Value = 0.05;
             Slider_Greening.Value = 0.15;
-            Slider_Compressing.Value = 0.95;
+            Slider_Compressing.Value = 0.90;
             Generate();
         }
 
@@ -222,6 +222,14 @@ namespace Electrical_Weathering
             Slider_Greening.Value = 0.0;
             Slider_Compressing.Value = 0.0;
             Slider_Scaling.Value = 1.0;
+        }
+
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            Process p = new Process();
+            p.StartInfo.FileName = e.Uri.ToString();
+            p.StartInfo.UseShellExecute = true;
+            p.Start();
         }
     }
 }

@@ -4,11 +4,11 @@ using System;
 using System.Windows.Media.Imaging;
 namespace Electrical_Weathering
 {
-    public class WeatheringMachine
+    public static class WeatheringMachine
     {
-        public WeatheringMachine() { }
+        //public WeatheringMachine() { }
 
-        public BitmapSource Generate(BitmapSource SourceImage, double iN, double iG, double iQ, double AspectRatio)
+        public static BitmapSource Generate(BitmapSource SourceImage, double iN, double iG, double iQ, double AspectRatio)
         {
             Mat SourceMat = BitmapSourceConverter.ToMat(SourceImage);
 
@@ -29,13 +29,14 @@ namespace Electrical_Weathering
                 ImageEncodingParam param = new ImageEncodingParam(ImwriteFlags.JpegQuality, (byte)Convert.ToInt32((1 - iQ) * 100));
                 byte[] buffer = SourceMat.ImEncode(".jpg", param);
                 SourceMat = Mat.ImDecode(buffer);
+
             }
 
             return BitmapSourceConverter.ToBitmapSource(SourceMat);
 
         }
 
-        private void Noising(Mat SourceMat, double intensity)
+        private static void Noising(Mat SourceMat, double intensity)
         {
             using (Mat NoiseMat = new Mat(SourceMat.Height, SourceMat.Width, MatType.CV_8UC4, new Scalar(0, 0, 0, 255)))
             {
@@ -44,7 +45,7 @@ namespace Electrical_Weathering
             }
         }
 
-        private void Greening(Mat SourceMat, double intensity)
+        private static void Greening(Mat SourceMat, double intensity)
         {
             using (Mat GreenMat = new Mat(SourceMat.Height, SourceMat.Width, MatType.CV_8UC4, new Scalar(0, 255, 0, 255)))
             {

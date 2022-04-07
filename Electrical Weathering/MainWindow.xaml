@@ -92,15 +92,15 @@
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0">
-                        <RadioButton x:Name="RB_Low" Content="景泰蓝(低)" GroupName="WeatheringDefault" FontSize="18" Click="RB_Low_Click"/>
+                        <RadioButton x:Name="RB_Low" Content="元青花(低)" GroupName="WeatheringDefault" FontSize="18" Click="RB_Low_Click"/>
 
                     </Grid>
                     <Grid Grid.Row="1">
-                        <RadioButton x:Name="RB_Medium" Content="元青花(中)" GroupName="WeatheringDefault" FontSize="18" Click="RB_Medium_Click"/>
+                        <RadioButton x:Name="RB_Medium" Content="唐三彩(中)" GroupName="WeatheringDefault" FontSize="18" Click="RB_Medium_Click"/>
 
                     </Grid>
                     <Grid Grid.Row="2">
-                        <RadioButton x:Name="RB_High" Content="唐三彩(高)" GroupName="WeatheringDefault" FontSize="18" Click="RB_High_Click"/>
+                        <RadioButton x:Name="RB_High" Content="兵马俑(高)" GroupName="WeatheringDefault" FontSize="18" Click="RB_High_Click"/>
 
                     </Grid>
                     <Grid Grid.Row="3">
@@ -112,7 +112,15 @@
                 <Button x:Name="Btn_Revert" Content="重置" Margin="0,0,180,50" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="18" Width="120" Background="#FFCCCCCC" Foreground="Black" Height="30" Click="Btn_Revert_Click" />
 
                 <Button x:Name="Btn_Save" Content="保存" Margin="0,30,30,50" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="18" Width="120" Background="#FF005FB8" Foreground="White" Height="30" Click="Btn_Save_Click" />
-                <TextBlock HorizontalAlignment="Right" Margin="0,0,30,10" TextWrapping="Wrap" Text="Copyright © 2021 KingsZNHONE" VerticalAlignment="Bottom" Foreground="Gray"/>
+                <TextBlock HorizontalAlignment="Right" Margin="0,0,30,10" TextWrapping="Wrap" VerticalAlignment="Bottom" Foreground="Gray" >
+                    Copyright © 2021
+                    <Hyperlink 
+                    NavigateUri="https://space.bilibili.com/2853155"
+                    RequestNavigate="Hyperlink_RequestNavigate">
+                    KingsZNHONE@Bilibili
+                    </Hyperlink>
+
+                </TextBlock>
             </Grid>
         </Grid>
     </Grid>

@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
+    <TargetFramework>net6.0-windows7.0</TargetFramework>
     <OutputType>WinExe</OutputType> 
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
@@ -37,7 +37,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
     <DebugType>full</DebugType>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
@@ -52,7 +52,15 @@
     <FileAlignment>4096</FileAlignment>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="ImageResources\Demo6.jpg" />
+    <None Remove="ImageResources\Demo7.jpg" />
+    <None Remove="ImageResources\Demo8.jpg" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Demo.jpg" />
+    <Resource Include="ImageResources\Demo6.jpg" />
+    <Resource Include="ImageResources\Demo7.jpg" />
+    <Resource Include="ImageResources\Demo8.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Weathering.bmp" />
