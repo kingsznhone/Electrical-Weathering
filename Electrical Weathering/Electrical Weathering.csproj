@@ -42,6 +42,7 @@
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
     <NeutralLanguage>zh-CN</NeutralLanguage>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
@@ -79,6 +80,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="ImageResources\Demo2.jpg" />

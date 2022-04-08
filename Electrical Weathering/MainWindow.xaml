@@ -40,16 +40,20 @@
 
         <Grid Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
                 <RowDefinition Height="2*"/>
-                <RowDefinition Height="4*"/>
+                <RowDefinition Height="3*"/>
                 <RowDefinition Height="3*"/>
             </Grid.RowDefinitions>
-
-            <Grid Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid Grid.Row="0">
+                <RadioButton x:Name="ModeClassic" Content="官窑[Skia](慢)" HorizontalAlignment="Left" Margin="50,50,0,0" VerticalAlignment="Top" FontSize="22" Checked="ModeClassic_Checked"/>
+                <RadioButton x:Name="ModeNG" Content="民窑[OpenCV](快)" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="22" Margin="0,50,50,0" Checked="ModeNG_Checked"/>
+            </Grid>
+            <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <TextBox x:Name="FilePathTextBox" Margin="30,50,30,0" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" FontSize="18" TextAlignment="Left" Height="25" Drop="FilePathTextBox_Drop" AllowDrop="True" PreviewDragOver="FilePathTextBox_PreviewDragOver"/>
                 <Button x:Name="FileSelectBtn" Content="选择文件" Margin="0,100,30,0" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="18"  Width="120" Background="#FF005FB8" Foreground="White" Height="30" Click="FileSelectBtn_Click"/>
             </Grid>
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="2">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
@@ -81,10 +85,9 @@
                     </Grid>
                 </Grid>
             </Grid>
-            <Grid Grid.Row="2">
-                <TextBlock TextWrapping="Wrap" Text="预设档" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24" Margin="30,30,0,0"/>
+            <Grid Grid.Row="3">
 
-                <Grid  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="30,80,0,0" Height="120" Width="120">
+                <Grid  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="30,31,0,0" Height="120" Width="120">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
@@ -92,26 +95,26 @@
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0">
-                        <RadioButton x:Name="RB_Low" Content="元青花(低)" GroupName="WeatheringDefault" FontSize="18" Click="RB_Low_Click"/>
+                        <RadioButton x:Name="RB_Low" Content="元青花(低)" GroupName="WeatheringDefault" FontSize="18" Click="RB_Low_Click" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
 
                     </Grid>
                     <Grid Grid.Row="1">
-                        <RadioButton x:Name="RB_Medium" Content="唐三彩(中)" GroupName="WeatheringDefault" FontSize="18" Click="RB_Medium_Click"/>
+                        <RadioButton x:Name="RB_Medium" Content="唐三彩(中)" GroupName="WeatheringDefault" FontSize="18" Click="RB_Medium_Click" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
 
                     </Grid>
                     <Grid Grid.Row="2">
-                        <RadioButton x:Name="RB_High" Content="兵马俑(高)" GroupName="WeatheringDefault" FontSize="18" Click="RB_High_Click"/>
+                        <RadioButton x:Name="RB_High" Content="兵马俑(高)" GroupName="WeatheringDefault" FontSize="18" Click="RB_High_Click" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
 
                     </Grid>
                     <Grid Grid.Row="3">
-                        <RadioButton x:Name="RB_Custom" Content="自定义" GroupName="WeatheringDefault" FontSize="18"/>
+                        <RadioButton x:Name="RB_Custom" Content="自定义" GroupName="WeatheringDefault" FontSize="18" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
 
                     </Grid>
 
                 </Grid>
-                <Button x:Name="Btn_Revert" Content="重置" Margin="0,0,180,50" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="18" Width="120" Background="#FFCCCCCC" Foreground="Black" Height="30" Click="Btn_Revert_Click" />
+                <Button x:Name="Btn_Revert" Content="重置" Margin="0,0,180,75" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="18" Width="120" Background="#FFCCCCCC" Foreground="Black" Height="30" Click="Btn_Revert_Click" />
 
-                <Button x:Name="Btn_Save" Content="保存" Margin="0,30,30,50" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="18" Width="120" Background="#FF005FB8" Foreground="White" Height="30" Click="Btn_Save_Click" />
+                <Button x:Name="Btn_Save" Content="保存" Margin="0,0,30,75" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="18" Width="120" Background="#FF005FB8" Foreground="White" Height="30" Click="Btn_Save_Click" />
                 <TextBlock HorizontalAlignment="Right" Margin="0,0,30,10" TextWrapping="Wrap" VerticalAlignment="Bottom" Foreground="Gray" >
                     Copyright © 2021
                     <Hyperlink 

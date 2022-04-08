@@ -9,27 +9,38 @@ using System.Windows.Navigation;
 
 namespace Electrical_Weathering
 {
+    public enum WeatheringMode
+    {
+        Classic,
+        NG
+    }
+
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
     public partial class MainWindow : Window
     {
         BitmapSource SelectedBitmap;
-        Stopwatch stopwatch;
-
+        Stopwatch stopwatch = new();
+        WeatheringMode Mode;
+        WeatheringMachine WM = new();
         public MainWindow()
         {
             InitializeComponent();
+            string path = $"ImageResources/Demo8.jpg";
+            PreviewImage.Source = new BitmapImage(new Uri(path, UriKind.RelativeOrAbsolute));
+
+            Mode = WeatheringMode.Classic;
+            ModeClassic.IsChecked = true;
             Slider_Scaling.ValueChanged += Slider_Scaling_ValueChanged;
-            stopwatch = new Stopwatch();
 
             Random rand = new Random();
             //string path = $"ImageResources/Demo{rand.Next(1, 9)}.jpg";
-            string path = $"ImageResources/Demo8.jpg";
-            PreviewImage.Source = new BitmapImage(new Uri(path, UriKind.RelativeOrAbsolute));
+            
             SelectedBitmap = (BitmapSource)PreviewImage.Source;
             CenterWindowOnScreen();
             Btn_Revert.IsEnabled = false;
+            
         }
 
         private void CenterWindowOnScreen()
@@ -44,11 +55,22 @@ namespace Electrical_Weathering
 
         private void Generate()
         {
+            BitmapSource Result;
             stopwatch.Start();
-            BitmapSource Result = WeatheringMachine.Generate(SelectedBitmap, Slider_Noise.Value, Slider_Greening.Value, Slider_Compressing.Value, Slider_Scaling.Value);
+            if (Mode == WeatheringMode.Classic)
+            {
+                
+                Result = WM.WeatheringClassic((BitmapImage)SelectedBitmap, Slider_Noise.Value, Slider_Greening.Value, Slider_Compressing.Value, Slider_Scaling.Value);
+                
+            }
+            else
+            {
+                Result = WM.WeatheringNG((BitmapImage)SelectedBitmap, Slider_Noise.Value, Slider_Greening.Value, Slider_Compressing.Value, Slider_Scaling.Value);
+            }
             stopwatch.Stop();
             PreviewImage.Source = Result;
             ImageSizeText.Text = $"{Result.PixelWidth} x {Result.PixelHeight}" + $"  {stopwatch.ElapsedMilliseconds}ms";
+
             stopwatch.Reset();
         }
 
@@ -113,7 +135,15 @@ namespace Electrical_Weathering
 
         private void Slider_Greening_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            TextGreeningValue.Text = $"{Slider_Greening.Value:P0}";
+            if (Mode == WeatheringMode.Classic)
+            {
+                TextGreeningValue.Text = $"{(int)(Slider_Greening.Value*100)} 迭代";
+            }
+            else
+            {
+                TextGreeningValue.Text = $"{Slider_Greening.Value:P0}";
+            }
+                
         }
 
         private void Slider_Compressing_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -230,6 +260,26 @@ namespace Electrical_Weathering
             p.StartInfo.FileName = e.Uri.ToString();
             p.StartInfo.UseShellExecute = true;
             p.Start();
+        }
+
+        private void ModeClassic_Checked(object sender, RoutedEventArgs e)
+        {
+            Mode = WeatheringMode.Classic;
+            try
+            {
+                Generate();
+            }
+            catch  { }
+        }
+
+        private void ModeNG_Checked(object sender, RoutedEventArgs e)
+        {
+            Mode = WeatheringMode.NG;
+            try
+            {
+                Generate();
+            }
+            catch  { }
         }
     }
 }
