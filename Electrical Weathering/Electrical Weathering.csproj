@@ -13,8 +13,9 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
+	<VersionPrefix>4.0.0.0</VersionPrefix>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>3.0.0.%2a</ApplicationVersion>
+    <ApplicationVersion>4.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
@@ -42,6 +43,7 @@
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
     <NeutralLanguage>zh-CN</NeutralLanguage>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
@@ -52,15 +54,23 @@
     <FileAlignment>4096</FileAlignment>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="ImageResources\Demo6.jpg" />
-    <None Remove="ImageResources\Demo7.jpg" />
-    <None Remove="ImageResources\Demo8.jpg" />
+    <None Remove="Resources\Demo6.jpg" />
+    <None Remove="Resources\Demo7.jpg" />
+    <None Remove="Resources\Demo8.jpg" />
+    <None Remove="Resources\Watermark_Tieba.png" />
+    <None Remove="Resources\Watermark_Toutiao.png" />
+    <None Remove="Resources\Watermark_Weibo.png" />
+    <None Remove="Resources\Watermark_Zhihu.png" />
+    <None Remove="Weathering.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Demo.jpg" />
-    <Resource Include="ImageResources\Demo6.jpg" />
-    <Resource Include="ImageResources\Demo7.jpg" />
-    <Resource Include="ImageResources\Demo8.jpg" />
+    <Resource Include="Resources\Demo6.jpg" />
+    <Resource Include="Resources\Demo7.jpg" />
+    <Resource Include="Resources\Demo8.jpg" />
+    <Resource Include="Resources\Watermark_Tieba.png" />
+    <Resource Include="Resources\Watermark_Toutiao.png" />
+    <Resource Include="Resources\Watermark_Weibo.png" />
+    <Resource Include="Resources\Watermark_Zhihu.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Weathering.bmp" />
@@ -81,19 +91,25 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ImageResources\Demo2.jpg" />
+    <Content Include="AppIcon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ImageResources\Demo1.jpg" />
+    <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ImageResources\Demo3.jpg" />
+    <Resource Include="Resources\Demo2.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ImageResources\Demo5.jpg" />
+    <Resource Include="Resources\Demo1.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ImageResources\Demo4.jpg" />
+    <Resource Include="Resources\Demo3.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Demo5.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Demo4.jpg" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
