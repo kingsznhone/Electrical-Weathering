@@ -41,17 +41,17 @@
         <Grid Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
-                <RowDefinition Height="2*"/>
+                <RowDefinition Height="1*"/>
                 <RowDefinition Height="3*"/>
                 <RowDefinition Height="3*"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
-                <RadioButton x:Name="ModeClassic" Content="官窑[Skia](慢)" HorizontalAlignment="Left" Margin="50,50,0,0" VerticalAlignment="Top" FontSize="22" Checked="ModeClassic_Checked"/>
-                <RadioButton x:Name="ModeNG" Content="民窑[OpenCV](快)" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="22" Margin="0,50,50,0" Checked="ModeNG_Checked"/>
+                <RadioButton x:Name="ModeClassic" Content="官窑[Skia](慢)" HorizontalAlignment="Left" Margin="50,30,0,0" VerticalAlignment="Top" FontSize="22" Checked="ModeClassic_Checked"/>
+                <RadioButton x:Name="ModeNG" Content="民窑[OpenCV](快)" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="22" Margin="0,30,50,0" Checked="ModeNG_Checked"/>
             </Grid>
             <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <TextBox x:Name="FilePathTextBox" Margin="30,50,30,0" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" FontSize="18" TextAlignment="Left" Height="25" Drop="FilePathTextBox_Drop" AllowDrop="True" PreviewDragOver="FilePathTextBox_PreviewDragOver"/>
-                <Button x:Name="FileSelectBtn" Content="选择文件" Margin="0,100,30,0" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="18"  Width="120" Background="#FF005FB8" Foreground="White" Height="30" Click="FileSelectBtn_Click"/>
+                <TextBox x:Name="FilePathTextBox" Margin="30,10,30,0" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" FontSize="18" TextAlignment="Left" Height="25" Drop="FilePathTextBox_Drop" AllowDrop="True" PreviewDragOver="FilePathTextBox_PreviewDragOver"/>
+                <Button x:Name="FileSelectBtn" Content="选择文件" Margin="0,50,30,0" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="18"  Width="120" Background="#FF005FB8" Foreground="White" Height="30" Click="FileSelectBtn_Click"/>
             </Grid>
             <Grid Grid.Row="2">
                 <Grid>
@@ -63,23 +63,23 @@
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                        <Slider x:Name="Slider_Noise" HorizontalAlignment="Stretch" Margin="100,0,100,0" VerticalAlignment="Center" Maximum="1" ValueChanged="Slider_Noise_ValueChanged" TickFrequency="0.01" IsSnapToTickEnabled="True" LargeChange="0.01" PreviewMouseLeftButtonDown="Slider_Noise_PreviewMouseLeftButtonDown" SmallChange="0.01" PreviewMouseLeftButtonUp="Slider_Noise_PreviewMouseLeftButtonUp"  />
+                        <Slider x:Name="Slider_Noise" HorizontalAlignment="Stretch" Margin="100,0,100,0" VerticalAlignment="Center" Maximum="1" ValueChanged="Slider_Noise_ValueChanged" TickFrequency="0.01" IsSnapToTickEnabled="True" LargeChange="0.01" PreviewMouseLeftButtonDown="Slider_Noise_PreviewMouseLeftButtonDown" SmallChange="0.01" PreviewMouseLeftButtonUp="Slider_MouseLeftButtonUp" KeyUp="Slider_KeyUp"  />
                         <TextBlock TextWrapping="Wrap" Text="噪点" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18" Margin="30,0,0,0"/>
                         <TextBlock x:Name="TextNoiseValue" TextWrapping="Wrap" Text="0%" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="18" Margin="0,0,30,0"/>
 
                     </Grid>
                     <Grid Grid.Row="1">
-                        <Slider x:Name="Slider_Greening" HorizontalAlignment="Stretch" Margin="100,0,100,0" VerticalAlignment="Center" Maximum="1" TickFrequency="0.01" IsSnapToTickEnabled="True" ValueChanged="Slider_Greening_ValueChanged" LargeChange="0.01" PreviewMouseLeftButtonDown="Slider_Greening_PreviewMouseLeftButtonDown" SmallChange="0.01" PreviewMouseLeftButtonUp="Slider_Noise_PreviewMouseLeftButtonUp"  />
+                        <Slider x:Name="Slider_Greening" HorizontalAlignment="Stretch" Margin="100,0,100,0" VerticalAlignment="Center" Maximum="1" TickFrequency="0.01" IsSnapToTickEnabled="True" ValueChanged="Slider_Greening_ValueChanged" LargeChange="0.01" PreviewMouseLeftButtonDown="Slider_Greening_PreviewMouseLeftButtonDown" SmallChange="0.01" PreviewMouseLeftButtonUp="Slider_MouseLeftButtonUp" KeyUp="Slider_KeyUp"  />
                         <TextBlock TextWrapping="Wrap" Text="绿化" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18" Margin="30,0,0,0"/>
                         <TextBlock x:Name="TextGreeningValue" TextWrapping="Wrap" Text="0%" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="18" Margin="0,0,30,0"/>
                     </Grid>
                     <Grid Grid.Row="2">
-                        <Slider x:Name="Slider_Compressing" HorizontalAlignment="Stretch" Margin="100,0,100,0" VerticalAlignment="Center" Maximum="1" IsSnapToTickEnabled="True" TickFrequency="0.01" ValueChanged="Slider_Compressing_ValueChanged" LargeChange="0.01" PreviewMouseLeftButtonDown="Slider_Compressing_PreviewMouseLeftButtonDown" SmallChange="0.01" PreviewMouseLeftButtonUp="Slider_Noise_PreviewMouseLeftButtonUp"  />
+                        <Slider x:Name="Slider_Compressing" HorizontalAlignment="Stretch" Margin="100,0,100,0" VerticalAlignment="Center" Maximum="1" IsSnapToTickEnabled="True" TickFrequency="0.01" ValueChanged="Slider_Compressing_ValueChanged" LargeChange="0.01" PreviewMouseLeftButtonDown="Slider_Compressing_PreviewMouseLeftButtonDown" SmallChange="0.01" PreviewMouseLeftButtonUp="Slider_MouseLeftButtonUp" KeyUp="Slider_KeyUp"  />
                         <TextBlock TextWrapping="Wrap" Text="压缩" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18" Margin="30,0,0,0"/>
                         <TextBlock x:Name="TextCompressingValue" TextWrapping="Wrap" Text="0%" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="18" Margin="0,0,30,0"/>
                     </Grid>
                     <Grid  Grid.Row="3">
-                        <Slider x:Name="Slider_Scaling" HorizontalAlignment="Stretch" Margin="100,0,100,0" VerticalAlignment="Center" Maximum="1" Value="1" TickFrequency="0.01" IsSnapToTickEnabled="True" LargeChange="0.01" SmallChange="0.01" PreviewMouseLeftButtonUp="Slider_Noise_PreviewMouseLeftButtonUp" Minimum="0.01"  />
+                        <Slider x:Name="Slider_Scaling" HorizontalAlignment="Stretch" Margin="100,0,100,0" VerticalAlignment="Center" Maximum="1" Value="1" TickFrequency="0.01" IsSnapToTickEnabled="True" LargeChange="0.01" SmallChange="0.01" PreviewMouseLeftButtonUp="Slider_MouseLeftButtonUp" Minimum="0.01" KeyUp="Slider_KeyUp"  />
                         <TextBlock TextWrapping="Wrap" Text="缩放" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18" Margin="30,0,0,0"/>
                         <TextBlock x:Name="TextScalingValue" TextWrapping="Wrap" Text="100%" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="18" Margin="0,0,30,0"/>
                     </Grid>
@@ -87,7 +87,7 @@
             </Grid>
             <Grid Grid.Row="3">
 
-                <Grid  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="30,31,0,0" Height="120" Width="120">
+                <Grid  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="30,30,0,0" Height="120" Width="120">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
@@ -112,9 +112,9 @@
                     </Grid>
 
                 </Grid>
-                <Button x:Name="Btn_Revert" Content="重置" Margin="0,0,180,75" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="18" Width="120" Background="#FFCCCCCC" Foreground="Black" Height="30" Click="Btn_Revert_Click" />
+                <Button x:Name="Btn_Revert" Content="重置" Margin="0,0,180,60" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="18" Width="120" Background="#FFCCCCCC" Foreground="Black" Height="30" Click="Btn_Revert_Click" />
 
-                <Button x:Name="Btn_Save" Content="保存" Margin="0,0,30,75" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="18" Width="120" Background="#FF005FB8" Foreground="White" Height="30" Click="Btn_Save_Click" />
+                <Button x:Name="Btn_Save" Content="保存" Margin="0,0,30,60" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="18" Width="120" Background="#FF005FB8" Foreground="White" Height="30" Click="Btn_Save_Click" />
                 <TextBlock HorizontalAlignment="Right" Margin="0,0,30,10" TextWrapping="Wrap" VerticalAlignment="Bottom" Foreground="Gray" >
                     Copyright © 2021
                     <Hyperlink 
@@ -124,6 +124,7 @@
                     </Hyperlink>
 
                 </TextBlock>
+                <CheckBox x:Name="Check_Watermark" Content="添加水印" HorizontalAlignment="Left" Margin="30,0,0,64" VerticalAlignment="Bottom" FontSize="18" VerticalContentAlignment="Center" Click="Check_Watermark_Click"/>
             </Grid>
         </Grid>
     </Grid>

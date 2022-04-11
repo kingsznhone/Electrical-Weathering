@@ -24,24 +24,24 @@ namespace Electrical_Weathering
         Stopwatch stopwatch = new();
         WeatheringMode Mode;
         WeatheringMachine WM = new();
+        Random rand = new Random();
         public MainWindow()
         {
             InitializeComponent();
-            string path = $"ImageResources/Demo8.jpg";
+
+            string path = $"Resources/Demo{rand.Next(1, 9)}.jpg";
             PreviewImage.Source = new BitmapImage(new Uri(path, UriKind.RelativeOrAbsolute));
+            SelectedBitmap = (BitmapSource)PreviewImage.Source;
+
+            Slider_Scaling.ValueChanged += Slider_Scaling_ValueChanged;
 
             Mode = WeatheringMode.Classic;
             ModeClassic.IsChecked = true;
-            Slider_Scaling.ValueChanged += Slider_Scaling_ValueChanged;
-
-            Random rand = new Random();
-            //string path = $"ImageResources/Demo{rand.Next(1, 9)}.jpg";
-            
-            SelectedBitmap = (BitmapSource)PreviewImage.Source;
-            CenterWindowOnScreen();
             Btn_Revert.IsEnabled = false;
-            
+            CenterWindowOnScreen();
         }
+
+       
 
         private void CenterWindowOnScreen()
         {
@@ -56,22 +56,28 @@ namespace Electrical_Weathering
         private void Generate()
         {
             BitmapSource Result;
-            stopwatch.Start();
+            stopwatch.Restart();
+            WeatheringParam param = new WeatheringParam()
+            {
+                Noise = Slider_Noise.Value,
+                Green = Slider_Greening.Value,
+                Quality = Slider_Compressing.Value,
+                AspectRatio = Slider_Scaling.Value,
+            };
+
             if (Mode == WeatheringMode.Classic)
             {
                 
-                Result = WM.WeatheringClassic((BitmapImage)SelectedBitmap, Slider_Noise.Value, Slider_Greening.Value, Slider_Compressing.Value, Slider_Scaling.Value);
+                Result = WM.WeatheringClassic((BitmapImage)SelectedBitmap, param,Check_Watermark.IsChecked.Value);
                 
             }
             else
             {
-                Result = WM.WeatheringNG((BitmapImage)SelectedBitmap, Slider_Noise.Value, Slider_Greening.Value, Slider_Compressing.Value, Slider_Scaling.Value);
+                Result = WM.WeatheringNG((BitmapImage)SelectedBitmap, param, Check_Watermark.IsChecked.Value);
             }
             stopwatch.Stop();
             PreviewImage.Source = Result;
             ImageSizeText.Text = $"{Result.PixelWidth} x {Result.PixelHeight}" + $"  {stopwatch.ElapsedMilliseconds}ms";
-
-            stopwatch.Reset();
         }
 
         private void FileSelectBtn_Click(object sender, RoutedEventArgs e)
@@ -85,6 +91,7 @@ namespace Electrical_Weathering
                     FilePathTextBox.Text = openFileDialog.FileName;
                     LoadImageFromPath(FilePathTextBox.Text);
                     Btn_Revert.IsEnabled = true;
+                    
                 }
             }
             catch
@@ -97,19 +104,20 @@ namespace Electrical_Weathering
         {
             using (var ms = new MemoryStream())
             {
-                BitmapImage BitmapBuffer = new BitmapImage();
+                BitmapImage Buffer = new BitmapImage();
                 using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
                 {
-                    BitmapBuffer.BeginInit();
-                    BitmapBuffer.StreamSource = fs;
-                    BitmapBuffer.CacheOption = BitmapCacheOption.OnLoad;
-                    //BitmapBuffer.UriSource = new Uri(FilePathTextBox.Text, UriKind.RelativeOrAbsolute);
-                    BitmapBuffer.EndInit();
+                    Buffer.BeginInit();
+                    Buffer.StreamSource = fs;
+                    Buffer.CacheOption = BitmapCacheOption.OnLoad;
+                    Buffer.EndInit();
                 }
 
-                SelectedBitmap = BitmapBuffer;
+                SelectedBitmap = Buffer;
                 PreviewImage.Source = SelectedBitmap;
                 ImageSizeText.Text = $"{SelectedBitmap.PixelWidth} x {SelectedBitmap.PixelHeight}";
+
+                Check_Watermark.IsEnabled = SelectedBitmap.PixelWidth>=240&&SelectedBitmap.PixelHeight>= 120;
 
                 ControlReset();
             }
@@ -126,6 +134,8 @@ namespace Electrical_Weathering
             Slider_Greening.Value = 0;
             Slider_Compressing.Value = 0;
             Slider_Scaling.Value = 1;
+
+            Check_Watermark.IsChecked = false;
         }
 
         private void Slider_Noise_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -200,7 +210,7 @@ namespace Electrical_Weathering
             RB_Custom.IsChecked = true;
         }
 
-        private void Slider_Noise_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void Slider_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             Generate();
         }
@@ -280,6 +290,16 @@ namespace Electrical_Weathering
                 Generate();
             }
             catch  { }
+        }
+
+        private void Slider_KeyUp(object sender, KeyEventArgs e)
+        {
+            Generate();
+        }
+
+        private void Check_Watermark_Click(object sender, RoutedEventArgs e)
+        {
+            Generate();
         }
     }
 }

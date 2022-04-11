@@ -36,6 +36,18 @@ A weared Emojpg like a medal. An internet veteran medal.
 
 ## 更新日志 Change Log
 
+### 2022.04.11 v4.0
+
+增加绿图罪魁祸首的原版Skia算法，性能比较差
+
+Add Original Skia Method. Bad Performance.
+
+https://github.com/google/skia/commit/c7d01d3e1d3621907c27b283fb7f8b6e177c629d
+
+增加水印功能，看起来更逼真
+
+Add Watermark function. More Realistic.
+
 ### 2021.11.10 v3.1
 
 项目整体迁移到 .NET 6 ，代码清理
