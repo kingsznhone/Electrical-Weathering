@@ -6,6 +6,8 @@
 
 这个软件可以加速一张图片在互联网中传输受到的损耗，从而达到快速包浆的效果
 
+顺便说一句git是真寄吧难用
+
 This software targets to accelerate weared out on Memes which I called Emojpg.(emotional jpg)
 
 Using weared Emojpg is more expert than clear Emojpg.
