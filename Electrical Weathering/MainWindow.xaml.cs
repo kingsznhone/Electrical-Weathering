@@ -1,4 +1,6 @@
 ﻿using Microsoft.Win32;
+using OpenCvSharp;
+using OpenCvSharp.WpfExtensions;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -18,18 +20,20 @@ namespace Electrical_Weathering
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : System.Windows.Window
     {
-        BitmapSource SelectedBitmap;
-        Stopwatch stopwatch = new();
-        WeatheringMode Mode;
-        WeatheringMachine WM = new();
-        Random rand = new Random();
+        private BitmapSource SelectedBitmap;
+        private Stopwatch stopwatch = new();
+        private WeatheringMode Mode;
+        private WeatheringMachine WM = new();
+        private Random rand = new Random();
+
         public MainWindow()
         {
             InitializeComponent();
 
             string path = $"Resources/Demo{rand.Next(1, 9)}.jpg";
+            
             PreviewImage.Source = new BitmapImage(new Uri(path, UriKind.RelativeOrAbsolute));
             SelectedBitmap = (BitmapSource)PreviewImage.Source;
 
@@ -37,11 +41,9 @@ namespace Electrical_Weathering
 
             Mode = WeatheringMode.Classic;
             ModeClassic.IsChecked = true;
-            Btn_Revert.IsEnabled = false;
+            Btn_Revert.IsEnabled = true;
             CenterWindowOnScreen();
         }
-
-       
 
         private void CenterWindowOnScreen()
         {
@@ -53,7 +55,7 @@ namespace Electrical_Weathering
             this.Top = (screenHeight / 2) - (windowHeight / 2);
         }
 
-        private void Generate()
+        private async void Generate()
         {
             BitmapSource Result;
             stopwatch.Restart();
@@ -65,15 +67,15 @@ namespace Electrical_Weathering
                 AspectRatio = Slider_Scaling.Value,
             };
 
+            Func<BitmapImage, Mat> ConvertToMatFunc = (source) => source.ToMat();
+
             if (Mode == WeatheringMode.Classic)
             {
-                
-                Result = WM.WeatheringClassic((BitmapImage)SelectedBitmap, param,Check_Watermark.IsChecked.Value);
-                
+                Result = WM.WeatheringSkia((BitmapImage)SelectedBitmap, param, Check_Watermark.IsChecked.Value);
             }
             else
             {
-                Result = WM.WeatheringNG((BitmapImage)SelectedBitmap, param, Check_Watermark.IsChecked.Value);
+                Result = WM.WeatheringCV((BitmapImage)SelectedBitmap, param, Check_Watermark.IsChecked.Value);
             }
             stopwatch.Stop();
             PreviewImage.Source = Result;
@@ -91,7 +93,6 @@ namespace Electrical_Weathering
                     FilePathTextBox.Text = openFileDialog.FileName;
                     LoadImageFromPath(FilePathTextBox.Text);
                     Btn_Revert.IsEnabled = true;
-                    
                 }
             }
             catch
@@ -117,7 +118,7 @@ namespace Electrical_Weathering
                 PreviewImage.Source = SelectedBitmap;
                 ImageSizeText.Text = $"{SelectedBitmap.PixelWidth} x {SelectedBitmap.PixelHeight}";
 
-                Check_Watermark.IsEnabled = SelectedBitmap.PixelWidth>=240&&SelectedBitmap.PixelHeight>= 120;
+                Check_Watermark.IsEnabled = SelectedBitmap.PixelWidth >= 240 && SelectedBitmap.PixelHeight >= 120;
 
                 ControlReset();
             }
@@ -147,13 +148,12 @@ namespace Electrical_Weathering
         {
             if (Mode == WeatheringMode.Classic)
             {
-                TextGreeningValue.Text = $"{(int)(Slider_Greening.Value*100)} 迭代";
+                TextGreeningValue.Text = $"{(int)(Slider_Greening.Value * 100)} 迭代";
             }
             else
             {
                 TextGreeningValue.Text = $"{Slider_Greening.Value:P0}";
             }
-                
         }
 
         private void Slider_Compressing_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -168,7 +168,6 @@ namespace Electrical_Weathering
                 TextScalingValue.Text = $"{Slider_Scaling.Value:P0}";
             }
             catch (NullReferenceException) { }
-
         }
 
         private void RB_Low_Click(object sender, RoutedEventArgs e)
@@ -257,11 +256,19 @@ namespace Electrical_Weathering
 
         private void Btn_Revert_Click(object sender, RoutedEventArgs e)
         {
-            LoadImageFromPath(FilePathTextBox.Text);
+            try
+            {
+                LoadImageFromPath(FilePathTextBox.Text);
+            }
+            catch
+            {
+            }
             Slider_Noise.Value = 0.0;
             Slider_Greening.Value = 0.0;
             Slider_Compressing.Value = 0.0;
             Slider_Scaling.Value = 1.0;
+
+            Generate();
         }
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
@@ -279,7 +286,7 @@ namespace Electrical_Weathering
             {
                 Generate();
             }
-            catch  { }
+            catch { }
         }
 
         private void ModeNG_Checked(object sender, RoutedEventArgs e)
@@ -289,7 +296,7 @@ namespace Electrical_Weathering
             {
                 Generate();
             }
-            catch  { }
+            catch { }
         }
 
         private void Slider_KeyUp(object sender, KeyEventArgs e)

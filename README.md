@@ -38,6 +38,23 @@ A weared Emojpg like a medal. An internet veteran medal.
 
 ## 更新日志 Change Log
 
+### 2023.03.24 v4.1
+
+优化Skia算法的多线程加速，速度提高3倍
+
+Optimize Skia Method. 3x Faster.
+
+调整CV算法的参数，更贴近Skia算法的生成效果
+
+Change args of CV Method. Make result more like Skia Method.
+
+#### Skia Method 
+<img src="https://github.com/kingsznhone/Electrical-Weathering/blob/master/WeatheringSkia.png" width="632" height="356" alt="High Intensity"/><br/>
+
+#### CV Method 
+<img src="https://github.com/kingsznhone/Electrical-Weathering/blob/master/WeatheringCV.png" width="632" height="356" alt="High Intensity"/><br/>
+
+
 ### 2022.04.11 v4.0
 
 增加绿图罪魁祸首的原版Skia算法，性能比较差
@@ -82,7 +99,7 @@ Initial Publish
 
 ## 最低要求 Minimal Requirement
 
-Windows 10 2004 (20H1) with .NET 6 runtime
+Windows 10 19041 (20H1) with .NET 6 runtime
 
 
 ## Stargazers over time

@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0-windows7.0</TargetFramework>
+    <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
     <OutputType>WinExe</OutputType> 
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
@@ -13,9 +13,9 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-	<VersionPrefix>4.0.0.0</VersionPrefix>
+	<VersionPrefix>4.1.0.0</VersionPrefix>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>4.0.0.%2a</ApplicationVersion>
+    <ApplicationVersion>4.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
@@ -24,111 +24,57 @@
     <PlatformTarget>x64</PlatformTarget>
 	<SatelliteResourceLanguages>zh-Hans</SatelliteResourceLanguages>
 	<Platforms>AnyCPU</Platforms>
+	<ApplicationManifest>app.manifest</ApplicationManifest>
+	<SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
+	<DebugType>full</DebugType>
+	<AssemblyVersion></AssemblyVersion>
+	<FileVersion></FileVersion>
+	<NeutralLanguage>zh-CN</NeutralLanguage>
+	<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
+	
   <PropertyGroup>
     <ApplicationIcon>AppIcon.ico</ApplicationIcon>
   </PropertyGroup>
+	
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <OutputPath>bin\x64\Debug\</OutputPath>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
+	
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
-    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
-    <DebugType>full</DebugType>
-    <AssemblyVersion></AssemblyVersion>
-    <FileVersion></FileVersion>
-    <NeutralLanguage>zh-CN</NeutralLanguage>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-    <FileAlignment>4096</FileAlignment>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-    <FileAlignment>4096</FileAlignment>
-  </PropertyGroup>
+	
   <ItemGroup>
-    <None Remove="Resources\Demo6.jpg" />
-    <None Remove="Resources\Demo7.jpg" />
-    <None Remove="Resources\Demo8.jpg" />
-    <None Remove="Resources\Watermark_Tieba.png" />
-    <None Remove="Resources\Watermark_Toutiao.png" />
-    <None Remove="Resources\Watermark_Weibo.png" />
-    <None Remove="Resources\Watermark_Zhihu.png" />
-    <None Remove="Weathering.bmp" />
+    <None Remove="Resources\Test.bmp" />
   </ItemGroup>
+
   <ItemGroup>
-    <Resource Include="Resources\Demo6.jpg" />
-    <Resource Include="Resources\Demo7.jpg" />
-    <Resource Include="Resources\Demo8.jpg" />
-    <Resource Include="Resources\Watermark_Tieba.png" />
-    <Resource Include="Resources\Watermark_Toutiao.png" />
-    <Resource Include="Resources\Watermark_Weibo.png" />
-    <Resource Include="Resources\Watermark_Zhihu.png" />
+	  <Resource Include="AppIcon.ico" />
+	  <Resource Include="Resources\Test.bmp" />
+	  <Resource Include="Weathering.bmp" />
+	  <Resource Include="Resources\Demo1.jpg" />
+	  <Resource Include="Resources\Demo2.jpg" />
+	  <Resource Include="Resources\Demo3.jpg" />
+	  <Resource Include="Resources\Demo4.jpg" />
+	  <Resource Include="Resources\Demo5.jpg" />
+	  <Resource Include="Resources\Demo6.jpg" />
+	  <Resource Include="Resources\Demo7.jpg" />
+	  <Resource Include="Resources\Demo8.jpg" />
+	  <Resource Include="Resources\Watermark_Tieba.png" />
+	  <Resource Include="Resources\Watermark_Toutiao.png" />
+	  <Resource Include="Resources\Watermark_Weibo.png" />
+	  <Resource Include="Resources\Watermark_Zhihu.png" />
+	  <Content Include="AppIcon.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Weathering.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="AppIcon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.8 %28x86 和 x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="AppIcon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\.editorconfig" Link=".editorconfig" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Demo2.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Demo1.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Demo3.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Demo5.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Demo4.jpg" />
-  </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.5.5.20211231" />
-    <PackageReference Include="OpenCvSharp4.WpfExtensions" Version="4.5.5.20211231" />
+    <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.7.0.20230115" />
+    <PackageReference Include="OpenCvSharp4.WpfExtensions" Version="4.7.0.20230115" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-    <PackageReference Include="Microsoft.Windows.Compatibility" Version="6.0.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Properties\Settings.Designer.cs">
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="7.0.0" />
   </ItemGroup>
 </Project>
