@@ -83,3 +83,9 @@ Initial Publish
 ## 最低要求 Minimal Requirement
 
 Windows 10 2004 (20H1) with .NET 6 runtime
+
+
+## Stargazers over time
+
+[![Stargazers over time](https://starchart.cc/kingsznhone/Electrical-Weathering.svg)](https://starchart.cc/kingsznhone/Electrical-Weathering)
+
