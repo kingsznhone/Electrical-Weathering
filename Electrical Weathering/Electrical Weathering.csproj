@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
     <OutputType>WinExe</OutputType> 
@@ -75,6 +75,6 @@
     <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.7.0.20230115" />
     <PackageReference Include="OpenCvSharp4.WpfExtensions" Version="4.7.0.20230115" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-    <PackageReference Include="Microsoft.Windows.Compatibility" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="7.0.3" />
   </ItemGroup>
 </Project>
