@@ -7,21 +7,8 @@ using System.Windows.Media.Imaging;
 
 namespace Electrical_Weathering
 {
-    [StructLayout(LayoutKind.Explicit)]
-    public struct TempBGRA
-    {
-        [FieldOffset(0)]
-        public byte B;
 
-        [FieldOffset(1)]
-        public byte G;
 
-        [FieldOffset(2)]
-        public byte R;
-
-        [FieldOffset(3)]
-        public byte A;
-    }
 
     public struct WeatheringParam
     {
@@ -33,6 +20,20 @@ namespace Electrical_Weathering
 
     public class WeatheringMachine
     {
+        const int CYR = 77; // 0.299
+        const int CYG = 150;   // 0.587
+        const int CYB = 29; // 0.114
+
+        const int CUR = -43;  // -0.16874
+        const int CUG = -85; // -0.33126
+        const int CUB = 128;  // 0.5
+
+        const int CVR = 128;  // 0.5
+        const int CVG = -107;// -0.41869
+        const int CVB = -21; // -0.08131
+
+        const int CSHIFT = 8;
+
         private Mat Watermark_Zhihu;
         private Mat Watermark_Sina;
         private Mat Watermark_Tieba;
@@ -50,11 +51,11 @@ namespace Electrical_Weathering
             Watermark_Toutiao = new BitmapImage(new Uri(path, UriKind.RelativeOrAbsolute)).ToMat();
         }
 
-        private Func<int, int> ClampRGB = (int x) => x >= 0 ? x <= 255 ? x : 255 : 0;
+        private Func<int, int> ClampUnsign = (int x) => x >= 0 ? x <= 255 ? x : 255 : 0;
 
-        private Func<int, int> ClampUV = (int x) => x < -128 ? -128 : x <= 127 ? x : 127;
+        private Func<int, int> ClampSign = (int x) => x < -128 ? -128 : x <= 127 ? x : 127;
 
-        public unsafe BitmapSource WeatheringSkia(BitmapImage input, WeatheringParam param, bool Watermark)
+        public BitmapSource WeatheringSkia(BitmapImage input, WeatheringParam param, bool Watermark)
         {
             Mat SourceMat = input.ToMat();
 
@@ -164,17 +165,17 @@ namespace Electrical_Weathering
 
         private Vec3b SkiaYUV(Vec3b p)
         {
-            int Y = ClampRGB(((77 * p.Item2 + 150 * p.Item1 + 29 * p.Item0) >> 8) - 1);
-            int U = ClampUV(((-43 * p.Item2 + -85 * p.Item1 + 128 * p.Item0) >> 8) - 1);
-            int V = ClampUV(((128 * p.Item2 + -107 * p.Item1 + -21 * p.Item0) >> 8) - 1);
+            int Y = ClampUnsign(((CYR * p.Item2 + CYG * p.Item1 + CYB * p.Item0) >> CSHIFT) - 1);
+            int Cr = ClampSign(((CUR * p.Item2 + CUG * p.Item1 + CUB * p.Item0) >> CSHIFT) - 1);
+            int Cb = ClampSign(((CVR* p.Item2 + CVG * p.Item1 + CVB * p.Item0) >> CSHIFT) - 1);
 
             int YY1 = Y << 16;
 
             var newPixel = new Vec3b
             {
-                Item0 = Convert.ToByte(ClampRGB((YY1 + 116130 * U) >> 16)), // B
-                Item1 = Convert.ToByte(ClampRGB((YY1 - 22553 * U - 46802 * V) >> 16)), // G
-                Item2 = Convert.ToByte(ClampRGB((YY1 + 91881 * V) >> 16)) // R
+                Item0 = Convert.ToByte(ClampUnsign((YY1 + 116130 * Cr) >> 16)), // B
+                Item1 = Convert.ToByte(ClampUnsign((YY1 - 22553 * Cr - 46802 * Cb) >> 16)), // G
+                Item2 = Convert.ToByte(ClampUnsign((YY1 + 91881 * Cb) >> 16)) // R
             };
             return newPixel;
         }

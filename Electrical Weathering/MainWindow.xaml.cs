@@ -33,7 +33,7 @@ namespace Electrical_Weathering
             InitializeComponent();
 
             string path = $"Resources/Demo{rand.Next(1, 9)}.jpg";
-            
+
             PreviewImage.Source = new BitmapImage(new Uri(path, UriKind.RelativeOrAbsolute));
             SelectedBitmap = (BitmapSource)PreviewImage.Source;
 
@@ -284,6 +284,7 @@ namespace Electrical_Weathering
             Mode = WeatheringMode.Classic;
             try
             {
+                TextGreeningValue.Text = $"{(int)(Slider_Greening.Value * 100)} 迭代";
                 Generate();
             }
             catch { }
@@ -294,6 +295,7 @@ namespace Electrical_Weathering
             Mode = WeatheringMode.NG;
             try
             {
+                TextGreeningValue.Text = $"{Slider_Greening.Value:P0}";
                 Generate();
             }
             catch { }
