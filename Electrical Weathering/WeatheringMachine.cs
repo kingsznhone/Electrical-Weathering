@@ -1,14 +1,16 @@
 ﻿using OpenCvSharp;
 using OpenCvSharp.WpfExtensions;
 using System;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 
 namespace Electrical_Weathering
 {
-
-
+    public enum WeatheringMode
+    {
+        SKIA,
+        OPENCV
+    }
 
     public struct WeatheringParam
     {
@@ -20,19 +22,19 @@ namespace Electrical_Weathering
 
     public class WeatheringMachine
     {
-        const int CYR = 77; // 0.299
-        const int CYG = 150;   // 0.587
-        const int CYB = 29; // 0.114
+        private const int CYR = 77; // 0.299
+        private const int CYG = 150;   // 0.587
+        private const int CYB = 29; // 0.114
 
-        const int CUR = -43;  // -0.16874
-        const int CUG = -85; // -0.33126
-        const int CUB = 128;  // 0.5
+        private const int CUR = -43;  // -0.16874
+        private const int CUG = -85; // -0.33126
+        private const int CUB = 128;  // 0.5
 
-        const int CVR = 128;  // 0.5
-        const int CVG = -107;// -0.41869
-        const int CVB = -21; // -0.08131
+        private const int CVR = 128;  // 0.5
+        private const int CVG = -107;// -0.41869
+        private const int CVB = -21; // -0.08131
 
-        const int CSHIFT = 8;
+        private const int CSHIFT = 8;
 
         private Mat Watermark_Zhihu;
         private Mat Watermark_Sina;
@@ -55,12 +57,12 @@ namespace Electrical_Weathering
 
         private Func<int, int> ClampSign = (int x) => x < -128 ? -128 : x <= 127 ? x : 127;
 
-        public BitmapSource WeatheringSkia(BitmapImage input, WeatheringParam param, bool Watermark)
+        public WriteableBitmap WeatheringSkia(Mat source, WeatheringParam param, bool Watermark)
         {
-            Mat SourceMat = input.ToMat();
+            Mat SourceMat = source;
 
             //Some Meme only have one color channel.
-            if (SourceMat.Type() == MatType.CV_8UC1)
+            if (SourceMat.Channels() == 1)
             {
                 SourceMat = SourceMat.CvtColor(ColorConversionCodes.GRAY2BGRA);
             }
@@ -97,16 +99,15 @@ namespace Electrical_Weathering
 
             if (param.AspectRatio != 1)
             {
-                OpenCvSharp.Size size = new OpenCvSharp.Size(0, 0);
-                SourceMat = SourceMat.Resize(size, param.AspectRatio, param.AspectRatio, InterpolationFlags.Area);
+                SourceMat = SourceMat.Resize(new Size(0, 0), param.AspectRatio, param.AspectRatio, InterpolationFlags.Area);
             }
 
-            return SourceMat.ToBitmapSource();
+            return SourceMat.ToWriteableBitmap();
         }
 
-        public BitmapSource WeatheringCV(BitmapSource SourceImage, WeatheringParam param, bool Watermark)
+        public WriteableBitmap WeatheringCV(Mat source, WeatheringParam param, bool Watermark)
         {
-            Mat SourceMat = SourceImage.ToMat();
+            Mat SourceMat = source;
             if (SourceMat.Type() == MatType.CV_8UC1)
             {
                 SourceMat = SourceMat.CvtColor(ColorConversionCodes.GRAY2BGRA);
@@ -129,14 +130,13 @@ namespace Electrical_Weathering
             }
             if (param.AspectRatio != 1.0)
             {
-                OpenCvSharp.Size size = new OpenCvSharp.Size(0, 0);
-                SourceMat = SourceMat.Resize(size, param.AspectRatio, param.AspectRatio, InterpolationFlags.Area);
+                SourceMat = SourceMat.Resize(new Size(0, 0), param.AspectRatio, param.AspectRatio, InterpolationFlags.Area);
             }
             if (param.Quality != 0.0)
             {
                 SourceMat = Compressing(SourceMat, param.Quality);
             }
-            return SourceMat.ToBitmapSource();
+            return SourceMat.ToWriteableBitmap();
         }
 
         public void AddWatermark(ref Mat SourceMat, Mat Watermark)
@@ -167,7 +167,7 @@ namespace Electrical_Weathering
         {
             int Y = ClampUnsign(((CYR * p.Item2 + CYG * p.Item1 + CYB * p.Item0) >> CSHIFT) - 1);
             int Cr = ClampSign(((CUR * p.Item2 + CUG * p.Item1 + CUB * p.Item0) >> CSHIFT) - 1);
-            int Cb = ClampSign(((CVR* p.Item2 + CVG * p.Item1 + CVB * p.Item0) >> CSHIFT) - 1);
+            int Cb = ClampSign(((CVR * p.Item2 + CVG * p.Item1 + CVB * p.Item0) >> CSHIFT) - 1);
 
             int YY1 = Y << 16;
 
@@ -195,7 +195,7 @@ namespace Electrical_Weathering
             {
                 double DesiredAlpha = 1 - 0.5 * intensity; //[0.5,1]
                 double DesiredBeta = 0.5 * Math.Sqrt(intensity); //[0,0.5]
-                double DesiredGamma = -3 * intensity * 100;
+                double DesiredGamma = -2.5 * intensity * 100;
                 DesiredGamma = DesiredGamma >= -45 ? DesiredGamma : -45;// [-45,0]
 
                 //Mix with 2 mat

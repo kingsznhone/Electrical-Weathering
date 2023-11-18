@@ -6,8 +6,6 @@
 
 这个软件可以加速一张图片在互联网中传输受到的损耗，从而达到快速包浆的效果
 
-顺便说一句git是真寄吧难用
-
 This software targets to accelerate weared out on Memes which I called Emojpg.(emotional jpg)
 
 Using weared Emojpg is more expert than clear Emojpg.
@@ -37,6 +35,16 @@ A weared Emojpg like a medal. An internet veteran medal.
 <img src="https://github.com/kingsznhone/Electrical-Weathering/blob/master/Quality_High.jpg" width="200" height="200" alt="High Intensity"/><br/>
 
 ## 更新日志 Change Log
+
+### 2023.03.24 v5.0
+
+迁移到.NET 8 [运行时下载](https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/runtime-desktop-8.0.0-windows-x64-installer ".NET 8.0 Desktop Runtime (v8.0.0) - Windows x64 Installer")
+
+Upgrade to .NET 8. [Runtime Download Link](https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/runtime-desktop-8.0.0-windows-x64-installer ".NET 8.0 Desktop Runtime (v8.0.0) - Windows x64 Installer")
+
+使用[WpfUi](https://wpfui.lepo.co/)重写界面
+
+Remake GUI with [WpfUi](https://wpfui.lepo.co/).
 
 ### 2023.03.24 v4.1
 
@@ -99,8 +107,7 @@ Initial Publish
 
 ## 最低要求 Minimal Requirement
 
-Windows 10 19041 (20H1) with .NET 6 runtime
-
+Windows 10 19041 (20H1) with .NET 8 runtime
 
 ## Stargazers over time
 
