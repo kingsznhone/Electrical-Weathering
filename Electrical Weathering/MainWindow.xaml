@@ -10,13 +10,12 @@
                  Title="{Binding ApplicationTitle}"
                  Width="960" Height="580"
                  MinWidth="960" MinHeight="580"
-                 WindowStyle="ThreeDBorderWindow"
                  Icon="Weathering.bmp"
                  WindowStartupLocation="CenterScreen"
                  AllowDrop="True"
                  ExtendsContentIntoTitleBar="True"
                  WindowBackdropType="Mica"
-                 Closed="_this_Closed"
+                 Closed="Window_Closed"
                  Drop="FilePath_Drop">
 
     <ui:FluentWindow.Resources>
@@ -54,14 +53,8 @@
                            Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" StretchDirection="Both" Margin="1,1,1,1" AllowDrop="True" />
                 </ui:Badge>
 
-                <ui:Badge Margin="24,24,0,24" VerticalAlignment="Bottom" Appearance="Secondary">
-                    <TextBlock x:Name="ImageInfoText"
-                                TextWrapping="Wrap"
-                                Text="{Binding ImageInfo}"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center">
-                    </TextBlock>
-                </ui:Badge>
+                <ui:TextBlock x:Name="ImageInfoText" Margin="24,24,0,24" VerticalAlignment="Bottom" HorizontalAlignment="Center" Text="{Binding ImageInfo}">
+                </ui:TextBlock>
             </Grid>
 
             <Grid Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
@@ -84,7 +77,7 @@
                             Command="{Binding SelectFileClickCommand}" />
 
                 <ui:Card  Grid.Row="1"  Margin="24,24,24,0" VerticalAlignment="Top">
-                    <ui:ToggleSwitch  Name="Swtitch_Mode" OffContent="Skia 慢火烘焙" OnContent="OpenCV 快速逼近"
+                    <ui:ToggleSwitch  Name="Swtitch_Mode" OffContent="Skia 慢火烘焙" OnContent="OpenCV 大火收汁"
                                       IsChecked="{Binding Mode,Converter={StaticResource ModeConverter},Mode=TwoWay}"
                                       Command="{Binding ModeSwitchCommand}"
                                       Margin="0,0,0,0" HorizontalAlignment="Left">

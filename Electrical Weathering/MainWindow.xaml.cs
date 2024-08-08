@@ -26,7 +26,7 @@ namespace Electrical_Weathering
             }
         }
 
-        private void _this_Closed(object sender, EventArgs e)
+        private void Window_Closed(object sender, EventArgs e)
         {
             Environment.Exit(0);
         }

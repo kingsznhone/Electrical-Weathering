@@ -6,15 +6,18 @@ using OpenCvSharp.WpfExtensions;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
 namespace Electrical_Weathering
 {
     public class MainWindowViewModel : ObservableObject
     {
         private WeatheringMachine WM;
+        public Dispatcher _dispatcher = Dispatcher.CurrentDispatcher;
         private Stopwatch stopwatch = new();
         private Random rand = new Random();
         private string applicationTitle;
@@ -117,14 +120,14 @@ namespace Electrical_Weathering
             Mode = WeatheringMode.SKIA;
             Scaling = 1d;
 
-            ModeSwitchCommand = new RelayCommand(ModeSwitch);
-            PresetLowClickCommand = new RelayCommand(SetLow);
-            PresetMediumClickCommand = new RelayCommand(SetMedium);
-            PresetHighClickCommand = new RelayCommand(SetHigh);
+            ModeSwitchCommand = new AsyncRelayCommand(Generate);
+            PresetLowClickCommand = new AsyncRelayCommand(SetLow);
+            PresetMediumClickCommand = new AsyncRelayCommand(SetMedium);
+            PresetHighClickCommand = new AsyncRelayCommand(SetHigh);
             SelectFileClickCommand = new RelayCommand(OpenFileDialog);
-            SliderMouseUpCommand = new RelayCommand(SliderMouseUp);
-            SliderMouseDownCommand = new RelayCommand(SliderMouseDown);
-            WatermarkCommand = new RelayCommand(Watermark);
+            SliderMouseUpCommand = new AsyncRelayCommand(SliderMouseUp);
+            SliderMouseDownCommand = new AsyncRelayCommand(SliderMouseDown);
+            WatermarkCommand = new AsyncRelayCommand(Watermark);
             ResetClickCommand = new RelayCommand(ControlReset);
             SaveClickCommand = new RelayCommand(Save);
         }
@@ -194,47 +197,50 @@ namespace Electrical_Weathering
             Watermark_Checked = false;
         }
 
-        private void SliderMouseUp()
-        {
-            Generate();
-        }
-
-        private void SliderMouseDown()
+        private async Task SliderMouseUp()
         {
             Custom_Checked = true;
+            await Generate();
         }
 
-        private void SetLow()
+        private async Task SliderMouseDown()
+        {
+            Custom_Checked = true;
+            await Generate();
+        }
+
+        private async Task SetLow()
         {
             Noise = 0;
             Green = 0.05;
             Compressing = 0.8;
-            Generate();
+            await Generate();
         }
 
-        private void SetMedium()
+        private async Task SetMedium()
         {
             Noise = 0.02;
             Green = 0.1;
             Compressing = 0.85;
-            Generate();
+            await Generate();
         }
 
-        private void SetHigh()
+        private async Task SetHigh()
         {
             Noise = 0.05;
             Green = 0.15;
             Compressing = 0.90;
-            Generate();
+            await Generate();
         }
 
-        private void Watermark()
+        private async Task Watermark()
         {
-            Generate();
+            await Generate();
         }
 
-        private async void Generate()
+        private async Task Generate()
         {
+
             WriteableBitmap Result;
             stopwatch.Restart();
             WeatheringParam param = new WeatheringParam()
@@ -247,7 +253,9 @@ namespace Electrical_Weathering
 
             Func<BitmapImage, Mat> ConvertToMatFunc = (source) => source.ToMat();
 
+
             Mat Source = ((BitmapImage)SelectedBitmap).ToMat();
+
             if (Mode == WeatheringMode.SKIA)
             {
                 Result = WM.WeatheringSkia(Source, param, Watermark_Checked);
@@ -257,9 +265,15 @@ namespace Electrical_Weathering
                 Result = WM.WeatheringCV(Source, param, Watermark_Checked);
             }
             stopwatch.Stop();
-
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                PreviewImage = Result;
+            });
             PreviewImage = Result;
+
             ImageInfo = $"{Result.PixelWidth} x {Result.PixelHeight} {stopwatch.ElapsedMilliseconds}ms";
+
+            return;
         }
 
         private void Save()

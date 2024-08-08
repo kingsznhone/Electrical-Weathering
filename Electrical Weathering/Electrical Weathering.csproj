@@ -2,34 +2,28 @@
   <PropertyGroup>
     <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
     <OutputType>WinExe</OutputType> 
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationVersion>5.0.0</ApplicationVersion>
+    <Version>5.1.0</Version>
     <UseWPF>true</UseWPF>
-    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
-	<SatelliteResourceLanguages>zh-Hans</SatelliteResourceLanguages>
-	<Platforms>AnyCPU</Platforms>
+	<Platforms>x64</Platforms>
 	<ApplicationManifest>app.manifest</ApplicationManifest>
 	<SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
-	<DebugType>full</DebugType>
 	<Authors>KingsZNHONE@Github.com</Authors>
 	<Copyright>Copyright © 2017-2023 ZNH Industry™</Copyright>
-	<NeutralLanguage>zh-CN</NeutralLanguage>
 	<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-	
-  <PropertyGroup>
     <ApplicationIcon>AppIcon.ico</ApplicationIcon>
-    <Version>$(ApplicationVersion)</Version>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 	
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <OutputPath>bin\Debug\</OutputPath>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Deterministic>False</Deterministic>
   </PropertyGroup>
 	
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\Release\</OutputPath>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Deterministic>False</Deterministic>
   </PropertyGroup>
 
   <ItemGroup>
@@ -55,9 +49,9 @@
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
-    <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.8.0.20230708" />
-    <PackageReference Include="OpenCvSharp4.WpfExtensions" Version="4.8.0.20230708" />
-    <PackageReference Include="WPF-UI" Version="3.0.0-preview.9" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.122" />
+    <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.10.0.20240616" />
+    <PackageReference Include="OpenCvSharp4.WpfExtensions" Version="4.10.0.20240616" />
+    <PackageReference Include="WPF-UI" Version="3.0.5" />
   </ItemGroup>
 </Project>

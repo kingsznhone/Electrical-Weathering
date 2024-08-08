@@ -87,7 +87,9 @@ namespace Electrical_Weathering
                 {
                     for (int x = 0; x < SourceMat.Width; x++)
                     {
-                        SourceMat.Set(y, x, SkiaYUV(SourceMat.Get<Vec3b>(y, x)));
+                        var p = SourceMat.Get<Vec3b>(y, x);
+                        SkiaYUV(ref p);
+                        SourceMat.Set(y, x, p);
                     }
                 });
             }
@@ -141,7 +143,7 @@ namespace Electrical_Weathering
 
         public void AddWatermark(ref Mat SourceMat, Mat Watermark)
         {
-            Mat ROI = SourceMat.SubMat(new OpenCvSharp.Rect(SourceMat.Width - Watermark.Width, SourceMat.Height - Watermark.Height, Watermark.Width, Watermark.Height));
+            Mat ROI = SourceMat.SubMat(new Rect(SourceMat.Width - Watermark.Width, SourceMat.Height - Watermark.Height, Watermark.Width, Watermark.Height));
             Vec4b vf;
             Vec3b vb;
             double alpha = 1;
@@ -163,7 +165,7 @@ namespace Electrical_Weathering
             }
         }
 
-        private Vec3b SkiaYUV(Vec3b p)
+        private void SkiaYUV(ref Vec3b p)
         {
             int Y = ClampUnsign(((CYR * p.Item2 + CYG * p.Item1 + CYB * p.Item0) >> CSHIFT) - 1);
             int Cr = ClampSign(((CUR * p.Item2 + CUG * p.Item1 + CUB * p.Item0) >> CSHIFT) - 1);
@@ -171,13 +173,10 @@ namespace Electrical_Weathering
 
             int YY1 = Y << 16;
 
-            var newPixel = new Vec3b
-            {
-                Item0 = Convert.ToByte(ClampUnsign((YY1 + 116130 * Cr) >> 16)), // B
-                Item1 = Convert.ToByte(ClampUnsign((YY1 - 22553 * Cr - 46802 * Cb) >> 16)), // G
-                Item2 = Convert.ToByte(ClampUnsign((YY1 + 91881 * Cb) >> 16)) // R
-            };
-            return newPixel;
+            p.Item0 = Convert.ToByte(ClampUnsign((YY1 + 116130 * Cr) >> 16)); // B
+            p.Item1 = Convert.ToByte(ClampUnsign((YY1 - 22553 * Cr - 46802 * Cb) >> 16)); ; // G
+            p.Item2 = Convert.ToByte(ClampUnsign((YY1 + 91881 * Cb) >> 16));// R
+
         }
 
         private void Noising(ref Mat SourceMat, double intensity)
