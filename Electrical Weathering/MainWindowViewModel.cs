@@ -269,7 +269,6 @@ namespace Electrical_Weathering
             {
                 PreviewImage = Result;
             });
-            PreviewImage = Result;
 
             ImageInfo = $"{Result.PixelWidth} x {Result.PixelHeight} {stopwatch.ElapsedMilliseconds}ms";
 
