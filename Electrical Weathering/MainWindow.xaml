@@ -77,7 +77,7 @@
                             Command="{Binding SelectFileClickCommand}" />
 
                 <ui:Card  Grid.Row="1"  Margin="24,24,24,0" VerticalAlignment="Top">
-                    <ui:ToggleSwitch  Name="Swtitch_Mode" OffContent="Skia 慢火烘焙" OnContent="OpenCV 大火收汁"
+                    <ui:ToggleSwitch  Name="Swtitch_Mode" OffContent="Skia 慢火烘焙" OnContent="OpenCV 猛火爆炒"
                                       IsChecked="{Binding Mode,Converter={StaticResource ModeConverter},Mode=TwoWay}"
                                       Command="{Binding ModeSwitchCommand}"
                                       Margin="0,0,0,0" HorizontalAlignment="Left">
@@ -95,9 +95,9 @@
                                 <Behaviors:EventTrigger EventName="PreviewMouseLeftButtonUp">
                                     <Behaviors:InvokeCommandAction Command="{Binding SliderMouseUpCommand}" />
                                 </Behaviors:EventTrigger>
-                                <Behaviors:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                                <!--<Behaviors:EventTrigger EventName="PreviewMouseLeftButtonDown">
                                     <Behaviors:InvokeCommandAction Command="{Binding SliderMouseDownCommand}" />
-                                </Behaviors:EventTrigger>
+                                </Behaviors:EventTrigger>-->
                             </Behaviors:Interaction.Triggers>
                         </Slider>
                         <TextBlock TextWrapping="Wrap" Text="噪点"
@@ -114,9 +114,9 @@
                                 <Behaviors:EventTrigger EventName="PreviewMouseLeftButtonUp">
                                     <Behaviors:InvokeCommandAction Command="{Binding SliderMouseUpCommand}" />
                                 </Behaviors:EventTrigger>
-                                <Behaviors:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                                <!--<Behaviors:EventTrigger EventName="PreviewMouseLeftButtonDown">
                                     <Behaviors:InvokeCommandAction Command="{Binding SliderMouseDownCommand}" />
-                                </Behaviors:EventTrigger>
+                                </Behaviors:EventTrigger>-->
                             </Behaviors:Interaction.Triggers>
                         </Slider>
                         <TextBlock TextWrapping="Wrap" Text="绿化"
@@ -133,9 +133,9 @@
                                 <Behaviors:EventTrigger EventName="PreviewMouseLeftButtonUp">
                                     <Behaviors:InvokeCommandAction Command="{Binding SliderMouseUpCommand}" />
                                 </Behaviors:EventTrigger>
-                                <Behaviors:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                                <!--<Behaviors:EventTrigger EventName="PreviewMouseLeftButtonDown">
                                     <Behaviors:InvokeCommandAction Command="{Binding SliderMouseDownCommand}" />
-                                </Behaviors:EventTrigger>
+                                </Behaviors:EventTrigger>-->
                             </Behaviors:Interaction.Triggers>
                         </Slider>
                         <TextBlock TextWrapping="Wrap" Text="压缩"
@@ -152,9 +152,9 @@
                                 <Behaviors:EventTrigger EventName="PreviewMouseLeftButtonUp">
                                     <Behaviors:InvokeCommandAction Command="{Binding SliderMouseUpCommand}" />
                                 </Behaviors:EventTrigger>
-                                <Behaviors:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                                <!--<Behaviors:EventTrigger EventName="PreviewMouseLeftButtonDown">
                                     <Behaviors:InvokeCommandAction Command="{Binding SliderMouseDownCommand}" />
-                                </Behaviors:EventTrigger>
+                                </Behaviors:EventTrigger>-->
                             </Behaviors:Interaction.Triggers>
                         </Slider>
                         <TextBlock TextWrapping="Wrap" Text="缩放"
@@ -178,7 +178,7 @@
                     <CheckBox x:Name="Check_Watermark" Content="添加水印" VerticalContentAlignment="Center"
                               HorizontalAlignment="Left" VerticalAlignment="Bottom"  Margin="32,0,0,24"
                               IsEnabled="{Binding Watermark_Available}" IsChecked="{Binding Watermark_Checked}"
-                              Command="{Binding WatermarkCommand}" />
+                              Command="{Binding WatermarkClickCommand}" />
                 </Grid>
 
                 <Grid Grid.Row="6">

@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <TargetFramework>net9.0-windows10.0.22000.0</TargetFramework>
     <OutputType>WinExe</OutputType> 
-    <Version>5.1.0</Version>
+    <Version>6.0.0</Version>
     <UseWPF>true</UseWPF>
 	<Platforms>x64</Platforms>
 	<ApplicationManifest>app.manifest</ApplicationManifest>
-	<SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
+	<SupportedOSPlatformVersion>10.0.22000.0</SupportedOSPlatformVersion>
 	<Authors>KingsZNHONE@Github.com</Authors>
 	<Copyright>Copyright © 2017-2023 ZNH Industry™</Copyright>
 	<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -47,10 +47,10 @@
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.7" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
-    <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.10.0.20241108" />
-    <PackageReference Include="OpenCvSharp4.WpfExtensions" Version="4.10.0.20241108" />
-    <PackageReference Include="WPF-UI" Version="4.0.0" />
+    <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.11.0.20250507" />
+    <PackageReference Include="OpenCvSharp4.WpfExtensions" Version="4.11.0.20250507" />
+    <PackageReference Include="WPF-UI" Version="4.0.3" />
   </ItemGroup>
 </Project>

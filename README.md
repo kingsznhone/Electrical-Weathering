@@ -36,6 +36,22 @@ A weared Emojpg like a medal. An internet veteran medal.
 
 ## 更新日志 Change Log
 
+### 2025.07.14 v6.0
+
+迁移到.NET 9
+
+Upgrade to .NET 9
+
+
+最低支持OS版本 Windows 11 10.0.22000.0
+
+Lowest OS version Windows 11 10.0.22000.0
+
+重写Skia模块，更接近真实过程
+
+Rewrite Skia weathering. Approching real progressing.
+
+
 ### 2023.03.24 v5.0
 
 迁移到.NET 8 [运行时下载](https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/runtime-desktop-8.0.0-windows-x64-installer ".NET 8.0 Desktop Runtime (v8.0.0) - Windows x64 Installer")

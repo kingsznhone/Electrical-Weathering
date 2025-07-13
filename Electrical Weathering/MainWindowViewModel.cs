@@ -3,110 +3,79 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Win32;
 using OpenCvSharp;
 using OpenCvSharp.WpfExtensions;
-using System;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
 namespace Electrical_Weathering
 {
-    public class MainWindowViewModel : ObservableObject
+    public partial class MainWindowViewModel : ObservableObject
     {
         private WeatheringMachine WM;
         public Dispatcher _dispatcher = Dispatcher.CurrentDispatcher;
         private Stopwatch stopwatch = new();
         private Random rand = new Random();
-        private string applicationTitle;
-        private string filePath;
-        private WeatheringMode mode;
-        private double noise;
-        private double green;
-        private double compressing;
-        private double scaling;
-        private string imageInfo;
-        private bool low_Checked;
-        private bool medium_Checked;
-        private bool high_Checked;
-        private bool custom_Checked;
-        private bool watermark_Available;
-        private bool watermark_Checked;
-        private ImageSource previewImage;
-        private ImageSource selectedBitmap;
+
+        public Task WeatheringTask { get; set; } = null;
+
+        private string _filePath;
+
+        [ObservableProperty]
+        private string _applicationTitle;
+
+        [ObservableProperty]
+        private WeatheringMode _mode = WeatheringMode.SKIA;
+
+        [ObservableProperty]
+        private double _noise = 0;
+
+        [ObservableProperty]
+        private double _green = 0;
+
+        [ObservableProperty]
+        private double _compressing = 0;
+
+        [ObservableProperty]
+        private double _scaling = 1d;
+
+        [ObservableProperty]
+        private string _imageInfo;
+
+        [ObservableProperty]
+        private bool _low_Checked = false;
+
+        [ObservableProperty]
+        private bool _medium_Checked = false;
+
+        [ObservableProperty]
+        private bool _high_Checked = false;
+
+        [ObservableProperty]
+        private bool _custom_Checked = false;
+
+        [ObservableProperty]
+        private bool _watermark_Available;
+
+        [ObservableProperty]
+        private bool _watermark_Checked = false;
+
+        private ImageSource _previewImage;
+        private ImageSource _selectedBitmap;
 
         public ImageSource PreviewImage
-        { get => previewImage; set { SetProperty(ref previewImage, value); } }
+        { get => _previewImage; set { SetProperty(ref _previewImage, value); } }
 
         public ImageSource SelectedBitmap
-        { get => selectedBitmap; set { SetProperty(ref selectedBitmap, value); } }
+        { get => _selectedBitmap; set { SetProperty(ref _selectedBitmap, value); } }
 
         public string FilePath
         {
-            get => filePath;
-            set { SetProperty(ref filePath, value); LoadImageFromPath(FilePath); }
+            get => _filePath;
+            set { SetProperty(ref _filePath, value); LoadImageFromPath(FilePath); }
         }
-
-        public WeatheringMode Mode
-        { get => mode; set { SetProperty(ref mode, value); } }
-
-        public double Noise
-        { get => noise; set { SetProperty(ref noise, value); } }
-
-        public double Green
-        { get => green; set { SetProperty(ref green, value); } }
-
-        public double Compressing
-        { get => compressing; set { SetProperty(ref compressing, value); } }
-
-        public double Scaling
-        { get => scaling; set { SetProperty(ref scaling, value); } }
-
-        public string ImageInfo
-        { get => imageInfo; set { SetProperty(ref imageInfo, value); } }
-
-        public bool Low_Checked
-        { get => low_Checked; set { SetProperty(ref low_Checked, value); } }
-
-        public bool Medium_Checked
-        { get => medium_Checked; set { SetProperty(ref medium_Checked, value); } }
-
-        public bool High_Checked
-        { get => high_Checked; set { SetProperty(ref high_Checked, value); } }
-
-        public bool Custom_Checked
-        { get => custom_Checked; set { SetProperty(ref custom_Checked, value); } }
-
-        public bool Watermark_Available
-        { get => watermark_Available; set { SetProperty(ref watermark_Available, value); } }
-
-        public bool Watermark_Checked
-        { get => watermark_Checked; set { SetProperty(ref watermark_Checked, value); } }
-
-        public string ApplicationTitle
-        { get => applicationTitle; set { SetProperty(ref applicationTitle, value); } }
-
-        public ICommand SelectFileClickCommand { get; private set; }
-
-        public ICommand ModeSwitchCommand { get; private set; }
-
-        public ICommand PresetLowClickCommand { get; private set; }
-
-        public ICommand PresetHighClickCommand { get; private set; }
-
-        public ICommand PresetMediumClickCommand { get; private set; }
-
-        public ICommand ResetClickCommand { get; private set; }
-
-        public ICommand SaveClickCommand { get; private set; }
-
-        public ICommand SliderMouseUpCommand { get; private set; }
-
-        public ICommand SliderMouseDownCommand { get; private set; }
-
-        public ICommand WatermarkCommand { get; private set; }
 
         public MainWindowViewModel(WeatheringMachine _wm)
         {
@@ -120,19 +89,16 @@ namespace Electrical_Weathering
             Mode = WeatheringMode.SKIA;
             Scaling = 1d;
 
-            ModeSwitchCommand = new AsyncRelayCommand(Generate);
-            PresetLowClickCommand = new AsyncRelayCommand(SetLow);
-            PresetMediumClickCommand = new AsyncRelayCommand(SetMedium);
-            PresetHighClickCommand = new AsyncRelayCommand(SetHigh);
-            SelectFileClickCommand = new RelayCommand(OpenFileDialog);
-            SliderMouseUpCommand = new AsyncRelayCommand(SliderMouseUp);
-            SliderMouseDownCommand = new AsyncRelayCommand(SliderMouseDown);
-            WatermarkCommand = new AsyncRelayCommand(Watermark);
-            ResetClickCommand = new RelayCommand(ControlReset);
-            SaveClickCommand = new RelayCommand(Save);
         }
 
-        private void OpenFileDialog()
+        [RelayCommand]
+        public async Task ModeSwitch()
+        {
+            await Generate();
+        }
+
+        [RelayCommand]
+        private void SelectFileClick()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "All Image Files|*.bmp;*.jpeg;*.jpg;*.png";
@@ -140,11 +106,6 @@ namespace Electrical_Weathering
             {
                 FilePath = openFileDialog.FileName;
             }
-        }
-
-        private void ModeSwitch()
-        {
-            Generate();
         }
 
         private void LoadImageFromPath(string path)
@@ -164,15 +125,15 @@ namespace Electrical_Weathering
 
                     SelectedBitmap = Buffer;
                     Watermark_Available = ((BitmapImage)SelectedBitmap).PixelWidth >= 240 && ((BitmapImage)SelectedBitmap).PixelHeight >= 120;
-                    ControlReset();
+                    ResetClick();
                 }
             }
-            catch
+            catch (Exception ex)
             {
                 Wpf.Ui.Controls.MessageBox msg = new Wpf.Ui.Controls.MessageBox()
                 {
-                    Title = "Excuse me?",
-                    Content = "就你那破图还想电子包浆？",
+                    Title = "就你那破图还想电子包浆？",
+                    Content = $"{ex.Message}",
                     CloseButtonText = "OK",
                     CloseButtonAppearance = Wpf.Ui.Controls.ControlAppearance.Primary
                 };
@@ -180,10 +141,12 @@ namespace Electrical_Weathering
             }
         }
 
-        private void ControlReset()
+        [RelayCommand]
+        private void ResetClick()
         {
             PreviewImage = SelectedBitmap;
             ImageInfo = $"{((BitmapImage)PreviewImage).PixelWidth} x {((BitmapImage)PreviewImage).PixelHeight}";
+
             Low_Checked = false;
             Medium_Checked = false;
             High_Checked = false;
@@ -197,51 +160,59 @@ namespace Electrical_Weathering
             Watermark_Checked = false;
         }
 
+        [RelayCommand]
         private async Task SliderMouseUp()
         {
             Custom_Checked = true;
             await Generate();
         }
 
+        [RelayCommand]
         private async Task SliderMouseDown()
         {
             Custom_Checked = true;
             await Generate();
         }
 
-        private async Task SetLow()
+        [RelayCommand]
+        private async Task PresetLowClick()
         {
             Noise = 0;
             Green = 0.05;
-            Compressing = 0.8;
+            Compressing = 0.25;
             await Generate();
         }
 
-        private async Task SetMedium()
+        [RelayCommand]
+        private async Task PresetMediumClick()
         {
             Noise = 0.02;
             Green = 0.1;
-            Compressing = 0.85;
+            Compressing = 0.5;
             await Generate();
         }
 
-        private async Task SetHigh()
+        [RelayCommand]
+        private async Task PresetHighClick()
         {
             Noise = 0.05;
             Green = 0.15;
-            Compressing = 0.90;
+            Compressing = 0.75;
             await Generate();
         }
 
-        private async Task Watermark()
+        [RelayCommand]
+        private async Task WatermarkClick()
         {
             await Generate();
         }
 
         private async Task Generate()
         {
-
-            WriteableBitmap Result;
+            if ( WeatheringTask != null&& !WeatheringTask.IsCompleted )
+            {
+                return;
+            }
             stopwatch.Restart();
             WeatheringParam param = new WeatheringParam()
             {
@@ -251,31 +222,50 @@ namespace Electrical_Weathering
                 AspectRatio = Scaling,
             };
 
-            Func<BitmapImage, Mat> ConvertToMatFunc = (source) => source.ToMat();
-
-
             Mat Source = ((BitmapImage)SelectedBitmap).ToMat();
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                PreviewImage = SelectedBitmap;
+            });
 
             if (Mode == WeatheringMode.SKIA)
             {
-                Result = WM.WeatheringSkia(Source, param, Watermark_Checked);
+                WeatheringTask = Task.Run(() =>
+                {
+                    var sourceBuffer = Source;
+                    for (int i = 0; i < param.Green * 100; i++)
+                    {
+                        var Result = WM.WeatheringSkia(sourceBuffer, param, Watermark_Checked);
+                        sourceBuffer = Result.Clone();
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            var writeableBitmap = Result.ToWriteableBitmap();
+                            PreviewImage = writeableBitmap;
+                            ImageInfo = $"{writeableBitmap.PixelWidth} x {writeableBitmap.PixelHeight} {stopwatch.ElapsedMilliseconds}ms";
+                        });
+                    }
+                });
+                await WeatheringTask;
+                //Result = await Task.Run(() => WM.WeatheringSkia(Source, param, Watermark_Checked));
             }
             else
             {
-                Result = WM.WeatheringCV(Source, param, Watermark_Checked);
+                var Result = await Task.Run(() => WM.WeatheringCV(Source, param, Watermark_Checked));
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    var writeableBitmap = Result.ToWriteableBitmap();
+                    PreviewImage = writeableBitmap;
+                    ImageInfo = $"{writeableBitmap.PixelWidth} x {writeableBitmap.PixelHeight} {stopwatch.ElapsedMilliseconds}ms";
+                });
             }
             stopwatch.Stop();
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                PreviewImage = Result;
-            });
-
-            ImageInfo = $"{Result.PixelWidth} x {Result.PixelHeight} {stopwatch.ElapsedMilliseconds}ms";
+            
 
             return;
         }
 
-        private void Save()
+        [RelayCommand]
+        private void SaveClick()
         {
             try
             {

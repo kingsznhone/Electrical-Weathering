@@ -57,7 +57,7 @@ namespace Electrical_Weathering
 
         private Func<int, int> ClampSign = (int x) => x < -128 ? -128 : x <= 127 ? x : 127;
 
-        public WriteableBitmap WeatheringSkia(Mat source, WeatheringParam param, bool Watermark)
+        public Mat WeatheringSkia(Mat source, WeatheringParam param, bool Watermark)
         {
             Mat SourceMat = source;
 
@@ -87,7 +87,7 @@ namespace Electrical_Weathering
                 {
                     for (int x = 0; x < SourceMat.Width; x++)
                     {
-                        var p = SourceMat.Get<Vec3b>(y, x);
+                        var p = SourceMat.At<Vec3b>(y, x);
                         SkiaYUV(ref p);
                         SourceMat.Set(y, x, p);
                     }
@@ -97,6 +97,7 @@ namespace Electrical_Weathering
             if (param.Quality != 0)
             {
                 SourceMat = Compressing(SourceMat, param.Quality);
+                SourceMat = SourceMat.CvtColor(ColorConversionCodes.BGR2BGRA);
             }
 
             if (param.AspectRatio != 1)
@@ -104,16 +105,20 @@ namespace Electrical_Weathering
                 SourceMat = SourceMat.Resize(new Size(0, 0), param.AspectRatio, param.AspectRatio, InterpolationFlags.Area);
             }
 
-            return SourceMat.ToWriteableBitmap();
+            return SourceMat;
+            //return SourceMat.ToWriteableBitmap();
         }
 
-        public WriteableBitmap WeatheringCV(Mat source, WeatheringParam param, bool Watermark)
+        public Mat WeatheringCV(Mat source, WeatheringParam param, bool Watermark)
         {
             Mat SourceMat = source;
+            
             if (SourceMat.Type() == MatType.CV_8UC1)
             {
                 SourceMat = SourceMat.CvtColor(ColorConversionCodes.GRAY2BGRA);
             }
+
+            
             if (Watermark)
             {
                 AddWatermark(ref SourceMat, Watermark_Zhihu);
@@ -137,8 +142,9 @@ namespace Electrical_Weathering
             if (param.Quality != 0.0)
             {
                 SourceMat = Compressing(SourceMat, param.Quality);
+                 SourceMat = SourceMat.CvtColor(ColorConversionCodes.BGR2BGRA);
             }
-            return SourceMat.ToWriteableBitmap();
+            return SourceMat;
         }
 
         public void AddWatermark(ref Mat SourceMat, Mat Watermark)
@@ -176,7 +182,6 @@ namespace Electrical_Weathering
             p.Item0 = Convert.ToByte(ClampUnsign((YY1 + 116130 * Cr) >> 16)); // B
             p.Item1 = Convert.ToByte(ClampUnsign((YY1 - 22553 * Cr - 46802 * Cb) >> 16)); ; // G
             p.Item2 = Convert.ToByte(ClampUnsign((YY1 + 91881 * Cb) >> 16));// R
-
         }
 
         private void Noising(ref Mat SourceMat, double intensity)
@@ -192,16 +197,23 @@ namespace Electrical_Weathering
         {
             using (Mat GreenMat = new Mat(SourceMat.Height, SourceMat.Width, MatType.CV_8UC4, new Scalar(0, 255, 0, 255)))
             {
-                double DesiredAlpha = 1 - 0.5 * intensity; //[0.5,1]
-                double DesiredBeta = 0.5 * Math.Sqrt(intensity); //[0,0.5]
-                double DesiredGamma = -2.5 * intensity * 100;
-                DesiredGamma = DesiredGamma >= -45 ? DesiredGamma : -45;// [-45,0]
+                // 计算图像混合参数：
+                // intensity值越大，图像越绿，范围[0,1]
+                double DesiredAlpha = 1 - 0.5 * intensity; // 原图权重，随intensity增大而减小，范围[0.5,1]
+                double DesiredBeta = 0.5 * Math.Sqrt(intensity); // 绿色图层权重，随intensity增大而增大，范围[0,0.5]
+                double DesiredGamma = -2.5 * intensity * 100; // 亮度调整值，随intensity增大而减小
+                DesiredGamma = DesiredGamma >= -45 ? DesiredGamma : -45; // 限制亮度调整的下限为-45
 
-                //Mix with 2 mat
+                // 图像混合：将原图与纯绿色图层按权重混合
+                // 公式: dst = src1*alpha + src2*beta + gamma
+                // 这里实现的是将原图(SourceMat)与绿色图层(GreenMat)按比例混合，并调整整体亮度
                 Cv2.AddWeighted(SourceMat, DesiredAlpha, GreenMat, DesiredBeta, DesiredGamma, SourceMat);
 
-                //
-                SourceMat.ConvertTo(SourceMat, SourceMat.Type(), 1 + 0.25 * intensity, -intensity * 128);
+                // 调整图像对比度和亮度
+                // 公式: dst = src * alpha + beta
+                // 增加对比度(1 + 0.25 * intensity)同时降低亮度(-intensity * 128)
+                // 这种调整能增强"老旧"效果，让图像看起来更"发绿"且褪色
+                SourceMat.ConvertTo(SourceMat, SourceMat.Type(), 1 + 0.4 * intensity, -intensity * 128);
 
                 //Lift G channel brightness
                 Mat[] bgra;
