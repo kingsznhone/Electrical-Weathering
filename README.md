@@ -20,19 +20,19 @@ A weared Emojpg like a medal. An internet veteran medal.
 
 ### 源文件 Source Image
 
-<img src="https://github.com/kingsznhone/Electrical-Weathering/blob/master/Quality_Source.jpg" width="200" height="200" alt="Source Image"/><br/>
+<img src="./Readme/Quality_Source.jpg" width="200" height="200" alt="Source Image"/><br/>
 
 ### 低强度 Low Intensity
 
-<img src="https://github.com/kingsznhone/Electrical-Weathering/blob/master/Quality_Low.jpg" width="200" height="200" alt="Low Intensity"/><br/>
+<img src="./Readme/Quality_Low.jpg" width="200" height="200" alt="Low Intensity"/><br/>
 
 ### 中强度 Midium Intensity
 
-<img src="https://github.com/kingsznhone/Electrical-Weathering/blob/master/Quality_Midium.jpg" width="200" height="200" alt="Midium Intensity"/><br/>
+<img src="./Readme/Quality_Midium.jpg" width="200" height="200" alt="Midium Intensity"/><br/>
 
 ### 高强度 High Intensity
 
-<img src="https://github.com/kingsznhone/Electrical-Weathering/blob/master/Quality_High.jpg" width="200" height="200" alt="High Intensity"/><br/>
+<img src="./Readme/Quality_High.jpg" width="200" height="200" alt="High Intensity"/><br/>
 
 ## 更新日志 Change Log
 
@@ -68,9 +68,8 @@ Rewrite Skia weathering. Approching real progressing.
 
 ### 2023.03.24 v5.0
 
-迁移到.NET 8 [运行时下载](https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/runtime-desktop-8.0.0-windows-x64-installer ".NET 8.0 Desktop Runtime (v8.0.0) - Windows x64 Installer")
-
-Upgrade to .NET 8. [Runtime Download Link](https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/runtime-desktop-8.0.0-windows-x64-installer ".NET 8.0 Desktop Runtime (v8.0.0) - Windows x64 Installer")
+迁移到.NET 8
+Upgrade to .NET 8.
 
 使用[WpfUi](https://wpfui.lepo.co/)重写界面
 
@@ -85,13 +84,6 @@ Optimize Skia Method. 3x Faster.
 调整CV算法的参数，更贴近Skia算法的生成效果
 
 Change args of CV Method. Make result more like Skia Method.
-
-#### Skia Method
-<img src="https://github.com/kingsznhone/Electrical-Weathering/blob/master/WeatheringSkia.png" width="632" height="356" alt="High Intensity"/><br/>
-
-#### CV Method
-<img src="https://github.com/kingsznhone/Electrical-Weathering/blob/master/WeatheringCV.png" width="632" height="356" alt="High Intensity"/><br/>
-
 
 ### 2022.04.11 v4.0
 
