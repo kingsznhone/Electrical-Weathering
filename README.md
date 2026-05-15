@@ -36,6 +36,14 @@ A weared Emojpg like a medal. An internet veteran medal.
 
 ## 更新日志 Change Log
 
+### 2026.05.15 V7.0
+
+迁移到.NET 10
+
+移除了OpenCV快速路径
+
+优化Skia路径的性能
+
 ### 2025.07.14 v6.0
 
 迁移到.NET 9
@@ -72,10 +80,10 @@ Optimize Skia Method. 3x Faster.
 
 Change args of CV Method. Make result more like Skia Method.
 
-#### Skia Method 
+#### Skia Method
 <img src="https://github.com/kingsznhone/Electrical-Weathering/blob/master/WeatheringSkia.png" width="632" height="356" alt="High Intensity"/><br/>
 
-#### CV Method 
+#### CV Method
 <img src="https://github.com/kingsznhone/Electrical-Weathering/blob/master/WeatheringCV.png" width="632" height="356" alt="High Intensity"/><br/>
 
 
@@ -123,7 +131,7 @@ Initial Publish
 
 ## 最低要求 Minimal Requirement
 
-Windows 10 19041 (20H1) with .NET 8 runtime
+Windows 11 26100 / .NET 10 desktop runtime
 
 ## Stargazers over time
 

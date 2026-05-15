@@ -1,41 +1,34 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
+using Microsoft.Extensions.Hosting;
 using System.Windows;
 
-namespace Electrical_Weathering
+namespace Electrical_Weathering;
+
+public partial class App : Application
 {
-    /// <summary>
-    /// App.xaml 的交互逻辑
-    /// </summary>
-    public partial class App : Application
+    private IHost? _host;
+
+    protected override async void OnStartup(StartupEventArgs e)
     {
-        private IServiceProvider _serviceProvider;
-
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            base.OnStartup(e);
-            var services = new ServiceCollection();
-            ConfigureServices(services);
-            _serviceProvider = services.BuildServiceProvider();
-            MainWindow = _serviceProvider.GetRequiredService<MainWindow>();
-            MainWindow.Show();
-        }
-
-        private void ConfigureServices(IServiceCollection services)
-        {
-            services.AddSingleton<WeatheringMachine>();
-            services.AddSingleton<MainWindowViewModel>();
-            services.AddSingleton<MainWindow>();
-        }
-
-        protected override void OnExit(ExitEventArgs e)
-        {
-            if (_serviceProvider is IDisposable disposable)
+        base.OnStartup(e);
+        _host = Host.CreateDefaultBuilder(e.Args)
+            .ConfigureServices((_, services) =>
             {
-                disposable.Dispose();
-            }
+                services.AddSingleton<WeatheringMachine>();
+                services.AddSingleton<MainWindowViewModel>();
+                services.AddSingleton<MainWindow>();
+            })
+            .Build();
 
-            base.OnExit(e);
-        }
+        await _host.StartAsync();
+        MainWindow = _host.Services.GetRequiredService<MainWindow>();
+        MainWindow.Show();
+    }
+
+    protected override async void OnExit(ExitEventArgs e)
+    {
+        if (_host is not null)
+            await _host.StopAsync();
+        base.OnExit(e);
     }
 }

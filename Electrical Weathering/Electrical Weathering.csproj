@@ -1,56 +1,47 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net9.0-windows10.0.22000.0</TargetFramework>
-    <OutputType>WinExe</OutputType> 
-    <Version>6.0.0</Version>
+    <TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>
+    <OutputType>WinExe</OutputType>
+    <Version>7.0.0</Version>
     <UseWPF>true</UseWPF>
-	<Platforms>x64</Platforms>
-	<ApplicationManifest>app.manifest</ApplicationManifest>
-	<SupportedOSPlatformVersion>10.0.22000.0</SupportedOSPlatformVersion>
-	<Authors>KingsZNHONE@Github.com</Authors>
-	<Copyright>Copyright © 2017-2023 ZNH Industry™</Copyright>
-	<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Platforms>x64</Platforms>
+    <SupportedOSPlatformVersion>10.0.26100.0</SupportedOSPlatformVersion>
+    <Authors>KingsZNHONE@Github.com</Authors>
+    <Copyright>Copyright © $([System.DateTime]::Now.Year) ZNH Industry™</Copyright>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <ApplicationIcon>AppIcon.ico</ApplicationIcon>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
-	
+
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <OutputPath>bin\Debug\</OutputPath>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Deterministic>False</Deterministic>
   </PropertyGroup>
-	
+
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\Release\</OutputPath>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Deterministic>False</Deterministic>
   </PropertyGroup>
 
   <ItemGroup>
-	  <Resource Include="AppIcon.ico" />
-	  <Resource Include="Resources\Test.bmp" />
-	  <Resource Include="Weathering.bmp" />
-	  <Resource Include="Resources\Demo1.jpg" />
-	  <Resource Include="Resources\Demo2.jpg" />
-	  <Resource Include="Resources\Demo3.jpg" />
-	  <Resource Include="Resources\Demo4.jpg" />
-	  <Resource Include="Resources\Demo5.jpg" />
-	  <Resource Include="Resources\Demo6.jpg" />
-	  <Resource Include="Resources\Demo7.jpg" />
-	  <Resource Include="Resources\Demo8.jpg" />
-	  <Resource Include="Resources\Watermark_Tieba.png" />
-	  <Resource Include="Resources\Watermark_Toutiao.png" />
-	  <Resource Include="Resources\Watermark_Weibo.png" />
-	  <Resource Include="Resources\Watermark_Zhihu.png" />
-	  <Content Include="AppIcon.ico" />
+    <Resource Include="AppIcon.ico" />
+    <Resource Include="Resources\Test.bmp" />
+    <Resource Include="Weathering.bmp" />
+    <Resource Include="Resources\Demo1.jpg" />
+    <Resource Include="Resources\Demo2.jpg" />
+    <Resource Include="Resources\Demo3.jpg" />
+    <Resource Include="Resources\Demo4.jpg" />
+    <Resource Include="Resources\Demo5.jpg" />
+    <Resource Include="Resources\Demo6.jpg" />
+    <Resource Include="Resources\Demo7.jpg" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.7" />
-    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
-    <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.11.0.20250507" />
-    <PackageReference Include="OpenCvSharp4.WpfExtensions" Version="4.11.0.20250507" />
-    <PackageReference Include="WPF-UI" Version="4.0.3" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.8" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.142" />
+    <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.13.0.20260302" />
+    <PackageReference Include="OpenCvSharp4.WpfExtensions" Version="4.13.0.20260427" />
+    <PackageReference Include="WPF-UI" Version="4.3.0" />
   </ItemGroup>
 </Project>
