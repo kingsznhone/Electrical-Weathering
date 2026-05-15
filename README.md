@@ -40,9 +40,15 @@ A weared Emojpg like a medal. An internet veteran medal.
 
 迁移到.NET 10
 
+Upgrade to .NET 10
+
 移除了OpenCV快速路径
 
+Remove OpenCV Path
+
 优化Skia路径的性能
+
+Optimize Skia Path
 
 ### 2025.07.14 v6.0
 
